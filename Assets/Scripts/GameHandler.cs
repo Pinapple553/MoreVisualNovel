@@ -35,9 +35,9 @@ public class GameHandler : MonoBehaviour
         SceneManager.LoadScene("Scene1");
     }
 
-    public void OpenCredits()
+    public void OpenSettings()
     {
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene("Settings");
     }
 
     public void RestartGame()
