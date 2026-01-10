@@ -20,6 +20,14 @@ public class StoryManager : MonoBehaviour
     [Header("Scene Objects")]
     [SerializeField]
     private Canvas canvas;
+    [SerializeField]
+    private CharacterManager characterManager;
+    [SerializeField]
+    private BackgroundManager backgroundManager;
+    [SerializeField]
+    private AudioManager audioManager;
+    [SerializeField]
+    private VisualManager visualManager;
 
 
     [Header("UI Prefabs")]
@@ -31,28 +39,24 @@ public class StoryManager : MonoBehaviour
     private Button buttonPrefab;
     [SerializeField]
     private Image textBoxPrefab;
+    [SerializeField]
+    private Image backgroudImagePrefab;
 
     [Header("Story Settings")]
     [SerializeField]
     public float textSpeed = 0.05f;
 
-    [System.Serializable]
-    public class Characters //class to hold character data
-    {
-        public string characterId; //name of the character
-        public Image character;
-    }
-    public List<Characters> characters;
-
     //dialogue handling
+    private GameObject choicesContainer; // Container for choice buttons
     private Image textBoxInstance;
+    private Image backgroudImageInstance;
     private TextMeshProUGUI currentDialogue;
     private TextMeshProUGUI currentSpeakerText;
     private Coroutine typingCoroutine;
     private bool isTyping;
+    private bool choicesCreated = false;
 
     private InputSystem controls; //Input system
-    private GameObject choicesContainer; // Container for choice buttons
 
     void Awake()
     {
@@ -60,12 +64,16 @@ public class StoryManager : MonoBehaviour
         controls.UI.Advance.performed += ctx =>
         {
             GameObject clicked = EventSystem.current.currentSelectedGameObject;
-            if (clicked != null && clicked.GetComponent<Button>() != null) return;   // ignores clicks on buttons so story dosn't advance twice when making a choice
-            AdvanceStory();
+            if (!(clicked != null && clicked.GetComponent<Button>() != null))   // ignores clicks on buttons so story dosn't advance twice when making a choice
+            {
+                AdvanceStory();
+            }
         };
 
-        CreateChoiceContainer();
+        RemoveCanvasChildren();
+        CreateBackgroundImage();
         CreateTextBox();
+        CreateChoiceContainer();
 
         StartStory();
     }
@@ -90,28 +98,43 @@ public class StoryManager : MonoBehaviour
         if (isTyping)// If text is still typing, finish instantly
         {
             StopCoroutine(typingCoroutine);
-            currentDialogue.text = story.currentText;
+            ShowDialogue(story.currentText);
             isTyping = false;
             return;
         }
-        RemoveChoices();
-
         if (story.canContinue) //shows next line of dialogue if possible
         {
+            RemoveChoices(); // Remove any existing choices
             string text = story.Continue().Trim();
-            ShowDialogue(text);
+            TypeDialogue(text);
             HandleTags();
             return;
         }
-
         if (story.currentChoices.Count > 0)// If choices exist, show them
         {
             ShowChoices();
             return;
         }
     }
-
     void ShowDialogue(string text)
+    {
+        if (currentDialogue == null)
+        {
+            currentDialogue = Instantiate(textPrefab, textBoxInstance.transform);
+        }
+        if (text.Contains(":"))
+        {
+            String[] textParts = text.Split(new char[] { ':' }, 2);
+            ChangeSpeaker(textParts[0]);
+            currentDialogue.text = textParts[1];
+        }
+        else
+        {
+            ChangeSpeaker("");
+            currentDialogue.text = text;
+        }
+    }
+    void TypeDialogue(string text)
     {
         if (currentDialogue == null)
         {
@@ -123,12 +146,11 @@ public class StoryManager : MonoBehaviour
             ChangeSpeaker(textParts[0]);
             typingCoroutine = StartCoroutine(TypeText(currentDialogue, textParts[1]));
         }
-        else 
+        else
         {
             ChangeSpeaker("");
             typingCoroutine = StartCoroutine(TypeText(currentDialogue, text));
         }
-        
     }
     IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)
     {
@@ -143,6 +165,7 @@ public class StoryManager : MonoBehaviour
     }
     void ShowChoices()
     {
+        if (choicesCreated) return; // Prevents creating choices multiple times
         foreach (Choice choice in story.currentChoices)
         {
             Button button = Instantiate(buttonPrefab, choicesContainer.transform, false);
@@ -159,6 +182,7 @@ public class StoryManager : MonoBehaviour
                 story.ChooseChoiceIndex(localChoice.index);
                 AdvanceStory();
             });
+            choicesCreated = true;
         }
     }
     void RemoveChoices()// Destroys the choice buttons
@@ -167,29 +191,41 @@ public class StoryManager : MonoBehaviour
         {
             Destroy(t.gameObject);
         }
-
+        choicesCreated = false;
     }
-    void CreateChoiceContainer()
+    void RemoveCanvasChildren()
+    {
+        int childCount = canvas.transform.childCount;
+        for (int i = childCount - 1; i >= 0; --i)
+        {
+            Destroy(canvas.transform.GetChild(i).gameObject);
+        }
+    }
+        void CreateChoiceContainer()
     {
         choicesContainer = new GameObject("ChoicesContainer");
         choicesContainer.transform.SetParent(canvas.transform, false);
 
         RectTransform rect = choicesContainer.AddComponent<RectTransform>();
-        rect.anchorMin = new Vector2(1f, 0);  
+        rect.anchorMin = new Vector2(1f, 0);
         rect.anchorMax = new Vector2(1f, 0);
         rect.pivot = new Vector2(1f, 0);
         rect.anchoredPosition = new Vector2(-80, 350);
         rect.sizeDelta = new Vector2(350, 600);
 
         VerticalLayoutGroup layout = choicesContainer.AddComponent<VerticalLayoutGroup>();
-        layout.childForceExpandHeight = false; 
-        layout.childForceExpandWidth = true;   
+        layout.childForceExpandHeight = false;
+        layout.childForceExpandWidth = true;
         layout.childAlignment = TextAnchor.LowerCenter;
         layout.spacing = 20f;
     }
     void CreateTextBox()
     {
         textBoxInstance = Instantiate(textBoxPrefab, canvas.transform);
+    }
+    void CreateBackgroundImage()
+    {
+        backgroudImageInstance = Instantiate(backgroudImagePrefab, canvas.transform);
     }
     void ChangeSpeaker(string spreakerName)
     {
@@ -199,24 +235,48 @@ public class StoryManager : MonoBehaviour
         }
         currentSpeakerText.text = spreakerName;
     }
-    void HandleTags() { 
+    void HandleTags()
+    {
         foreach (string tag in story.currentTags)
         {
             string[] splitTag = tag.Split(" ");
 
-            string tagKey = splitTag[0].Trim();
-            switch (tagKey)
+            string mainKey = splitTag[0].Trim();
+            switch (mainKey)
             {
                 case "char":
+                    if (splitTag[1].Trim() == "hide") //hide character
+                    {
+                        characterManager.SetExpression(splitTag[2], "neutral"); //set to neutral when hiding
+                        break;
+                    }
+                    if (characterManager.CharExists(splitTag[1]))
+                    {
+                        if (splitTag.Length > 2) //set character expression
+                        {
+                            characterManager.SetExpression(splitTag[1], splitTag[2]);
+                        }
+                        else
+                        {
+                            characterManager.SetExpression(splitTag[1], "neutral");//show neutral expression
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Unknown character in tag: " + tag);
+                        break;
+                    }
+                case "background":
+                    if (splitTag.Length < 2) break;
 
-                case "sfx":
+                    backgroudImagePrefab.sprite = Resources.Load<Sprite>(splitTag[1]);
+                    break;
 
                 case "vfx":
-
-                case "background":
-
+                case "sfx":
                 case "music":
-
+                case "textspeed":
                 default:
                     Debug.Log("Unhandled tag: " + tag);
                     break;
