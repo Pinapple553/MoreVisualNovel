@@ -1,127 +1,226 @@
-using System;
 using Ink.Runtime;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static CharacterVisuals;
 
 // This is a super bare bones example of how to play and display a ink story in Unity.
 public class StoryManager : MonoBehaviour
 {
-    public static event Action<Story> OnCreateStory;
     [Header("Story")]
     [SerializeField]
     private TextAsset inkJSONAsset;
     public Story story;
 
-    [Header("Canvas")]
+    [Header("Scene Objects")]
     [SerializeField]
     private Canvas canvas;
+
 
     [Header("UI Prefabs")]
     [SerializeField]
     private TextMeshProUGUI textPrefab;
     [SerializeField]
+    private TextMeshProUGUI speakerPrefab;
+    [SerializeField]
     private Button buttonPrefab;
+    [SerializeField]
+    private Image textBoxPrefab;
 
+    [Header("Story Settings")]
+    [SerializeField]
+    public float textSpeed = 0.05f;
 
+    [System.Serializable]
+    public class Characters //class to hold character data
+    {
+        public string characterId; //name of the character
+        public Image character;
+    }
+    public List<Characters> characters;
+
+    //dialogue handling
+    private Image textBoxInstance;
+    private TextMeshProUGUI currentDialogue;
+    private TextMeshProUGUI currentSpeakerText;
+    private Coroutine typingCoroutine;
+    private bool isTyping;
+
+    private InputSystem controls; //Input system
+    private GameObject choicesContainer; // Container for choice buttons
 
     void Awake()
     {
-        RemoveChildren();
+        controls = new InputSystem();
+        controls.UI.Advance.performed += ctx =>
+        {
+            GameObject clicked = EventSystem.current.currentSelectedGameObject;
+            if (clicked != null && clicked.GetComponent<Button>() != null) return;   // ignores clicks on buttons so story dosn't advance twice when making a choice
+            AdvanceStory();
+        };
+
+        CreateChoiceContainer();
+        CreateTextBox();
+
         StartStory();
+    }
+
+    private void OnEnable()
+    {
+        controls.UI.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.UI.Disable();
     }
 
     // Creates a new Story object with the compiled story which we can then play!
     void StartStory()
     {
         story = new Story(inkJSONAsset.text);
-        if (OnCreateStory != null) OnCreateStory(story);
-        RefreshView();
+        AdvanceStory();
+    }
+    void AdvanceStory()
+    {
+        if (isTyping)// If text is still typing, finish instantly
+        {
+            StopCoroutine(typingCoroutine);
+            currentDialogue.text = story.currentText;
+            isTyping = false;
+            return;
+        }
+        RemoveChoices();
+
+        if (story.canContinue) //shows next line of dialogue if possible
+        {
+            string text = story.Continue().Trim();
+            ShowDialogue(text);
+            HandleTags();
+            return;
+        }
+
+        if (story.currentChoices.Count > 0)// If choices exist, show them
+        {
+            ShowChoices();
+            return;
+        }
     }
 
-    // This is the main function called every time the story changes. It does a few things:
-    // Destroys all the old content and choices.
-    // Continues over all the lines of text, then displays all the choices. If there are no choices, the story is finished!
-    void RefreshView()
+    void ShowDialogue(string text)
     {
-        // Remove all the UI on screen
-        RemoveChildren();
-
-        // Read all the content until we can't continue any more
-        while (story.canContinue)
+        if (currentDialogue == null)
         {
-            // Continue gets the next line of the story
-            string text = story.Continue();
-            // This removes any white space from the text.
-            text = text.Trim();
-            // Display the text on screen!
-            CreateContentView(text);
+            currentDialogue = Instantiate(textPrefab, textBoxInstance.transform);
         }
-
-        // Display all the choices, if there are any!
-        if (story.currentChoices.Count > 0)
+        if (text.Contains(":"))
         {
-            for (int i = 0; i < story.currentChoices.Count; i++)
+            String[] textParts = text.Split(new char[] { ':' }, 2);
+            ChangeSpeaker(textParts[0]);
+            typingCoroutine = StartCoroutine(TypeText(currentDialogue, textParts[1]));
+        }
+        else 
+        {
+            ChangeSpeaker("");
+            typingCoroutine = StartCoroutine(TypeText(currentDialogue, text));
+        }
+        
+    }
+    IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)
+    {
+        isTyping = true;
+        textComponent.text = "";
+        foreach (char c in fullText)
+        {
+            textComponent.text += c;
+            yield return new WaitForSeconds(textSpeed);
+        }
+        isTyping = false;
+    }
+    void ShowChoices()
+    {
+        foreach (Choice choice in story.currentChoices)
+        {
+            Button button = Instantiate(buttonPrefab, choicesContainer.transform, false);
+            TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = choice.text.Trim();
+
+            // Gets the text from the button prefab
+            TextMeshProUGUI choiceText = button.GetComponentInChildren<TextMeshProUGUI>();
+            choiceText.text = choice.text.Trim();
+
+            Choice localChoice = choice;
+            button.onClick.AddListener(() =>
             {
-                Choice choice = story.currentChoices[i];
-                Button button = CreateChoiceView(choice.text.Trim());
-                // Tell the button what to do when we press it
-                button.onClick.AddListener(delegate {
-                    OnClickChoiceButton(choice);
-                });
-            }
-        }
-        // If we've read all the content and there's no choices, the story is finished!
-        else
-        {
-            Button choice = CreateChoiceView("End of story.\nRestart?");
-            choice.onClick.AddListener(delegate {
-                StartStory();
+                story.ChooseChoiceIndex(localChoice.index);
+                AdvanceStory();
             });
         }
     }
-
-    // When we click the choice button, tell the story to choose that choice!
-    void OnClickChoiceButton(Choice choice)
+    void RemoveChoices()// Destroys the choice buttons
     {
-        story.ChooseChoiceIndex(choice.index);
-        RefreshView();
-    }
-
-    // Creates a textbox showing the the line of text
-    void CreateContentView(string text)
-    {
-        TextMeshProUGUI storyText = Instantiate(textPrefab) as TextMeshProUGUI;
-        storyText.text = text;
-        storyText.transform.SetParent(canvas.transform, false);
-    }
-
-    // Creates a button showing the choice text
-    Button CreateChoiceView(string text)
-    {
-        // Creates the button from a prefab
-        Button choice = Instantiate(buttonPrefab) as Button;
-        choice.transform.SetParent(canvas.transform, false);
-
-        // Gets the text from the button prefab
-        TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI>();
-        choiceText.text = text;
-
-        // Make the button expand to fit the text
-        HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-        layoutGroup.childForceExpandHeight = false;
-
-        return choice;
-    }
-
-    // Destroys all the children of this gameobject (all the UI)
-    void RemoveChildren()
-    {
-        int childCount = canvas.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
+        foreach (Transform t in choicesContainer.transform)
         {
-            Destroy(canvas.transform.GetChild(i).gameObject);
+            Destroy(t.gameObject);
+        }
+
+    }
+    void CreateChoiceContainer()
+    {
+        choicesContainer = new GameObject("ChoicesContainer");
+        choicesContainer.transform.SetParent(canvas.transform, false);
+
+        RectTransform rect = choicesContainer.AddComponent<RectTransform>();
+        rect.anchorMin = new Vector2(1f, 0);  
+        rect.anchorMax = new Vector2(1f, 0);
+        rect.pivot = new Vector2(1f, 0);
+        rect.anchoredPosition = new Vector2(-80, 350);
+        rect.sizeDelta = new Vector2(350, 600);
+
+        VerticalLayoutGroup layout = choicesContainer.AddComponent<VerticalLayoutGroup>();
+        layout.childForceExpandHeight = false; 
+        layout.childForceExpandWidth = true;   
+        layout.childAlignment = TextAnchor.LowerCenter;
+        layout.spacing = 20f;
+    }
+    void CreateTextBox()
+    {
+        textBoxInstance = Instantiate(textBoxPrefab, canvas.transform);
+    }
+    void ChangeSpeaker(string spreakerName)
+    {
+        if (currentSpeakerText == null)
+        {
+            currentSpeakerText = Instantiate(speakerPrefab, textBoxInstance.transform);
+        }
+        currentSpeakerText.text = spreakerName;
+    }
+    void HandleTags() { 
+        foreach (string tag in story.currentTags)
+        {
+            string[] splitTag = tag.Split(" ");
+
+            string tagKey = splitTag[0].Trim();
+            switch (tagKey)
+            {
+                case "char":
+
+                case "sfx":
+
+                case "vfx":
+
+                case "background":
+
+                case "music":
+
+                default:
+                    Debug.Log("Unhandled tag: " + tag);
+                    break;
+            }
         }
     }
-
 }
