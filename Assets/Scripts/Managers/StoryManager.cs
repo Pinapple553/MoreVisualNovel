@@ -25,9 +25,9 @@ public class StoryManager : MonoBehaviour
     [SerializeField]
     private BackgroundManager backgroundManager;
     [SerializeField]
-    private AudioManager audioManager;
+    private AudioEffectsManager audioEffectsManager;
     [SerializeField]
-    private VisualManager visualManager;
+    private VisualEffectsManager visualEffectsManager;
 
 
     [Header("UI Prefabs")]
@@ -39,8 +39,7 @@ public class StoryManager : MonoBehaviour
     private Button buttonPrefab;
     [SerializeField]
     private Image textBoxPrefab;
-    [SerializeField]
-    private Image backgroudImagePrefab;
+    //[SerializeField] private Image backgroudImagePrefab;
 
     [Header("Story Settings")]
     [SerializeField]
@@ -58,6 +57,14 @@ public class StoryManager : MonoBehaviour
 
     private InputSystem controls; //Input system
 
+    private void OnEnable()
+    {
+        controls.UI.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.UI.Disable();
+    }
     void Awake()
     {
         controls = new InputSystem();
@@ -70,21 +77,12 @@ public class StoryManager : MonoBehaviour
             }
         };
 
-        RemoveCanvasChildren();
         CreateBackgroundImage();
         CreateTextBox();
         CreateChoiceContainer();
+        //OrderCanvasItems();
 
         StartStory();
-    }
-
-    private void OnEnable()
-    {
-        controls.UI.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.UI.Disable();
     }
 
     // Creates a new Story object with the compiled story which we can then play!
@@ -193,15 +191,14 @@ public class StoryManager : MonoBehaviour
         }
         choicesCreated = false;
     }
-    void RemoveCanvasChildren()
+    void OrderCanvasItems()
     {
-        int childCount = canvas.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            Destroy(canvas.transform.GetChild(i).gameObject);
-        }
+        textBoxInstance.transform.SetAsFirstSibling();
+        choicesContainer.transform.SetAsFirstSibling();
+        backgroudImageInstance.transform.SetAsFirstSibling();
+
     }
-        void CreateChoiceContainer()
+    void CreateChoiceContainer()
     {
         choicesContainer = new GameObject("ChoicesContainer");
         choicesContainer.transform.SetParent(canvas.transform, false);
@@ -225,7 +222,7 @@ public class StoryManager : MonoBehaviour
     }
     void CreateBackgroundImage()
     {
-        backgroudImageInstance = Instantiate(backgroudImagePrefab, canvas.transform);
+        //backgroudImageInstance = Instantiate(backgroudImagePrefab, canvas.transform);
     }
     void ChangeSpeaker(string spreakerName)
     {
@@ -241,42 +238,144 @@ public class StoryManager : MonoBehaviour
         {
             string[] splitTag = tag.Split(" ");
 
-            string mainKey = splitTag[0].Trim();
-            switch (mainKey)
+            switch (splitTag[0].Trim())
             {
                 case "char":
-                    if (splitTag[1].Trim() == "hide") //hide character
+                    switch (splitTag[1].Trim())
                     {
-                        characterManager.SetExpression(splitTag[2], "neutral"); //set to neutral when hiding
-                        break;
-                    }
-                    if (characterManager.CharExists(splitTag[1]))
-                    {
-                        if (splitTag.Length > 2) //set character expression
-                        {
-                            characterManager.SetExpression(splitTag[1], splitTag[2]);
-                        }
-                        else
-                        {
-                            characterManager.SetExpression(splitTag[1], "neutral");//show neutral expression
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Unknown character in tag: " + tag);
-                        break;
-                    }
-                case "background":
-                    if (splitTag.Length < 2) break;
+                        case "show":
+                            if (characterManager.CharExists(splitTag[2]))
+                            {
+                                if (splitTag.Length > 3)
+                                {
+                                    characterManager.Show(splitTag[2], splitTag[3]);
+                                }
+                                else
+                                {
+                                    characterManager.Show(splitTag[2]);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
 
-                    backgroudImagePrefab.sprite = Resources.Load<Sprite>(splitTag[1]);
+                        case "hide":
+                            if (characterManager.CharExists(splitTag[2]))
+                            {
+                                if (splitTag.Length > 3)
+                                {
+                                    characterManager.Hide(splitTag[2]);
+                                }
+                                else
+                                {
+                                    characterManager.Hide(splitTag[2]);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
+
+                        case "move":
+                            if (splitTag.Length < 4) break;
+                            if (characterManager.CharExists(splitTag[2]))
+                            {
+                                if (float.TryParse(splitTag[3], out float movePosition))
+                                {
+                                    characterManager.MoveCharacterPosition(splitTag[2], movePosition);
+                                }
+                                else
+                                {
+                                    Debug.LogWarning("Unknown position in tag: " + tag);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
+                        case "set":
+                            if (splitTag.Length < 4) break;
+                            if (characterManager.CharExists(splitTag[2]))
+                            {
+                                if (float.TryParse(splitTag[3], out float setPosition))
+                                {
+                                    characterManager.SetCharacterPosition(splitTag[2], setPosition);
+                                }
+                                else
+                                {
+                                    Debug.LogWarning("Unknown position in tag: " + tag);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
+                        default:
+                            if (characterManager.CharExists(splitTag[1]))
+                            {
+                                if (splitTag.Length > 2) //set character expression
+                                {
+                                    characterManager.SetExpression(splitTag[1], splitTag[2]);
+                                }
+                                else
+                                {
+                                    characterManager.SetExpression(splitTag[1], "neutral");//show neutral expression
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
+                    }
                     break;
 
-                case "vfx":
+                case "bg":
+                    if (splitTag.Length < 2) break;
+                    backgroundManager.ChangeBackground(splitTag[1]);
+                    break;
+
                 case "sfx":
+                    if (splitTag.Length < 2) break;
+                    audioEffectsManager.PlaySFX(splitTag[1]);
+                    break;
                 case "music":
-                case "textspeed":
+                    if (splitTag.Length < 2) break;
+                    bool loop = true;
+                    if (splitTag.Length > 2 && splitTag[2] == "loop")
+                    {
+                        loop = true;
+                    }
+                    if (splitTag.Length > 2 && splitTag[2] == "once")
+                    {
+                        loop = false;
+                    }
+                    audioEffectsManager.PlayMusic(splitTag[1], loop);
+                    break;
+                case "txtspeed":
+                    switch (splitTag[1])
+                    {
+                        case "slow":
+                            textSpeed = 0.1f;
+                            break;
+                        case "normal":
+                            textSpeed = 0.05f;
+                            break;
+                        case "fast":
+                            textSpeed = 0.01f;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "vfx":
+                    Debug.Log("VFX tag handling not implemented yet: " + tag);
+                    break;
                 default:
                     Debug.Log("Unhandled tag: " + tag);
                     break;

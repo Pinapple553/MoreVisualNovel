@@ -1,16 +1,40 @@
+using UnityEngine.UI;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [System.Serializable]
+    public class BackgroundImage 
     {
-        
+        public string backgroundName; 
+        public Sprite sprite; 
+    }
+    public List<BackgroundImage> backgrounds; 
+
+    [SerializeField]
+    private Image backgroundImageUI;
+    private Dictionary<string, Sprite> lookup; //lookup dictionary for quick access to expressions
+
+    void Awake()
+    {
+        lookup = new Dictionary<string, Sprite>();
+        foreach (var exp in backgrounds) 
+        {
+            lookup[exp.backgroundName] = exp.sprite;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeBackground(string backgroundId) 
     {
-        
+        if (lookup.TryGetValue(backgroundId, out var sprite))
+        {
+            backgroundImageUI.sprite = sprite;
+        }
+        else
+        {
+            Debug.Log("background not found "+backgroundId);
+        }
     }
 }
+
