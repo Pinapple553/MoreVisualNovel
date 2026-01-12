@@ -3,9 +3,9 @@
 #char set char2 0.2
 Test: This is a demo of all the tag functions
 Are you ready?
-    *yes
+    *[yes]
     THEN LETS GO!!!
-    *no
+    *[no]
     ...I'll ignore that!
 -First lets go thrugh the "char" functions! char should be the first tag whenever something about a character is changed
 #char show char1
@@ -25,8 +25,8 @@ Character 1 moves from current position to right
 Character 1 moves from current position to middle. any value from 0.2-0.8 will be positioned within the screen, you can go lower or higher but the character might apear ofscreen.
 #char flip char1 right
 We can also make the character look to the left or right!
-#char anim char1 jump
-Character 1 dose jumps animation
+//#char anim char1 jump
+//Character 1 dose jumps animation
 
 Then we have the background tag!
 Right now the background is the defult one
@@ -35,7 +35,7 @@ But we can change it!
 And um thats it... you just change the background with the bg tag
 
 Now onto the audio tags sfx and music!
-*okay!
+*[okay!]
 -#sfx boom 
 plays boom sound effect until its finnished playing
 #sfx boom 0.5
@@ -45,8 +45,10 @@ Plays music withinout looping
 #music short_music loop
 Plays music with looping
 
+#music stop
+And you can also stop the music
 Alright thats all the audio functions!
-Now lets move onto the visual effects
+Now lets move onto the visual effects (not done)
 #vfx screen_shake
 Plays screen shake
 #vfx screen_shake 2
@@ -58,11 +60,12 @@ There are plenty more vfx one could add but this is it for now!
 Lets move onto the last little thing, drumbroll please.
 *[drumbroll]
 -#txtspeed slow
-...
+..........
 #txtspeed fast
 TEXT SPEEEEEEEEEEEEEEEEEEEEEEEEEEED!!!
 #txtspeed normal
 for now theres slow fast and normal but i might make it a scale from 1 to 100
 And thats the end!
+#txtspeed fast
 Thank you for paying attention 
 

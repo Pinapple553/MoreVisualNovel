@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &106878082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,17 +1451,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
   m_PrefabInstance: {fileID: 4918407000179215178}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1011558549 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8909043381903442560, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
-  m_PrefabInstance: {fileID: 4918407000179215178}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273584524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ead2557899141438d775f3221c14b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &1051491089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,13 +1534,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1011558549}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: ToMainMenu
+      - m_Target: {fileID: 273584524}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1978,13 +1967,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1011558549}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: PauseGame
+      - m_Target: {fileID: 273584524}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2073,7 +2062,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VisualEffectsManager
   mainCamera: {fileID: 519420031}
-  cameraAnimations: []
+  cameraAnimations:
+  - animationName: shake
+    animation: {fileID: 0}
 --- !u!1 &1437913406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,10 +2816,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8909043381903442560, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
-      propertyPath: pauseScreen
-      value: 
-      objectReference: {fileID: 106878084}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2930,10 +2917,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3213878712941935957, guid: e9b8dc82108c93747beb85cfe88dc992, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 3982411360953978520, guid: d23593ae723597c4a9efe8b5240af1f4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

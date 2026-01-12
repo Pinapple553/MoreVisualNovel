@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEditor.ShaderGraph;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
+    [SerializeField]
+    private InputSystem controls;
+    [SerializeField]
+    private Canvas pauseScreen;
+    private void Awake()
+    {
+        controls = new InputSystem();
+        controls.UI.Pause.performed += ctx => PauseGame();
 
-    public static int playerStat1;
-    // public TMP_Text textGameObject;
-
-    // void Start () { UpdateScore (); }
-
+    }
+    private void OnEnable()
+    {
+        controls.UI.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.UI.Disable();
+    }
     void Update()
     {
         //NOTE: delete this quit functionality when a Pause Menu is added!
@@ -40,9 +53,8 @@ public class GameHandler : MonoBehaviour
         SceneManager.LoadScene("Settings");
     }
 
-    public void RestartGame()
+    public void ToMainMenu()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -50,5 +62,9 @@ public class GameHandler : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         //Application.Quit();
+    }
+    public void PauseGame()
+    {
+        pauseScreen.enabled = !pauseScreen.enabled;
     }
 }

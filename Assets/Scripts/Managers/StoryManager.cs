@@ -102,6 +102,7 @@ public class StoryManager : MonoBehaviour
         }
         if (story.canContinue) //shows next line of dialogue if possible
         {
+            //visualEffectsManager.ShakeCamera();
             RemoveChoices(); // Remove any existing choices
             string text = story.Continue().Trim();
             TypeDialogue(text);
@@ -315,6 +316,17 @@ public class StoryManager : MonoBehaviour
                                 Debug.LogWarning("Unknown character in tag: " + tag);
                             }
                             break;
+                        case "flip":
+                            if (splitTag.Length < 4) break;
+                            if (characterManager.CharExists(splitTag[2]))
+                            {
+                                characterManager.FlipCharacter(splitTag[2], splitTag[3]);
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Unknown character in tag: " + tag);
+                            }
+                            break;
                         default:
                             if (characterManager.CharExists(splitTag[1]))
                             {
@@ -342,10 +354,23 @@ public class StoryManager : MonoBehaviour
 
                 case "sfx":
                     if (splitTag.Length < 2) break;
-                    audioEffectsManager.PlaySFX(splitTag[1]);
+                    if (splitTag.Length >2 && float.TryParse(splitTag[2], out float volume))
+                    {
+                        audioEffectsManager.PlaySFX(splitTag[1], volume);
+                    }
+                    else
+                    {
+                        audioEffectsManager.PlaySFX(splitTag[1]);
+                    }
+
                     break;
                 case "music":
                     if (splitTag.Length < 2) break;
+                    if (splitTag[1] =="stop")
+                    {
+                        audioEffectsManager.StopMusic();
+                        break;
+                    }
                     bool loop = true;
                     if (splitTag.Length > 2 && splitTag[2] == "loop")
                     {
@@ -361,7 +386,7 @@ public class StoryManager : MonoBehaviour
                     switch (splitTag[1])
                     {
                         case "slow":
-                            textSpeed = 0.1f;
+                            textSpeed = 0.5f;
                             break;
                         case "normal":
                             textSpeed = 0.05f;

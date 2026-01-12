@@ -54,13 +54,19 @@ public class AudioEffectsManager : MonoBehaviour
         backgroundMusicSource.Stop();
         if (lookupMusic.TryGetValue(MusicName, out var music))
         {
+            
             backgroundMusicSource.loop = loop;
-            backgroundMusicSource.PlayOneShot(music);
+            backgroundMusicSource.clip = music;
+            backgroundMusicSource.Play();
         }
         else
         {
             Debug.Log("sound not found " + MusicName);
         }
+    }
+    public void StopMusic()
+    {
+        backgroundMusicSource.Stop();
     }
     public void PlaySFX(string SfxName, float volume = 1)
     {

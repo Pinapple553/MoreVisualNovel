@@ -64,5 +64,10 @@ public class CharacterManager : MonoBehaviour
         if (TryGetCharacter(characterName, out var character))
             character.MoveToPosition(position);
     }
+    public void FlipCharacter(string characterName, string direction)
+    {
+        if (TryGetCharacter(characterName, out var character))
+            character.FlipCharacter(direction);
+    }
 
 }

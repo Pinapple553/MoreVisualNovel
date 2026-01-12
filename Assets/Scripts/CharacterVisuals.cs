@@ -67,6 +67,7 @@ public class CharacterVisuals : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(MoveRoutine(position, duration));
     }
+
     private IEnumerator MoveRoutine(float target, float duration)
     {
         RectTransform rect = characterImageUI.rectTransform;
@@ -89,6 +90,20 @@ public class CharacterVisuals : MonoBehaviour
 
         rect.anchorMin = new Vector2(target, rect.anchorMin.y);
         rect.anchorMax = new Vector2(target, rect.anchorMax.y);
+    }
+
+    public void FlipCharacter(string direction)
+    {
+        RectTransform rect = characterImageUI.rectTransform;
+        if (direction == "right")
+        {
+            rect.transform.eulerAngles = new Vector3(rect.transform.eulerAngles.x, 180, rect.transform.eulerAngles.z);
+        }
+        else
+        {
+            rect.transform.eulerAngles = new Vector3(rect.transform.eulerAngles.x, 0 , rect.transform.eulerAngles.z);
+        }
+        
     }
 
 }
