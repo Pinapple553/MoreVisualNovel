@@ -2,7 +2,6 @@
 #char set char1 0.8
 #char set char2 0.2
 Test: This is a demo of all the tag functions
-#vfx cutscene despair
 Are you ready?
     *[yes]
     THEN LETS GO!!!
@@ -15,8 +14,8 @@ Shows character 1 at defult position
 Hides character 1, when hiding expession is always set to neutal
 #char show char1 happy
 Shows character 1 happy
-#char show char2 sad
-Shows character 2 sad
+#char show char2 nervous
+Shows character 2 nervous
 #char hide char2
 #char set char1 0.2
 Sets character 1's position to left
@@ -53,7 +52,7 @@ Now lets move onto the visual effects (not done)
 #vfx screen_shake
 Plays screen shake
 #vfx screen_shake 2
-Plays screen shake at 2 times speed 
+Plays screen shake at 2 times duration
 #vfx fade_to_black
 Plays fade to black
 There are plenty more vfx one could add but this is it for now!
@@ -67,6 +66,9 @@ TEXT SPEEEEEEEEEEEEEEEEEEEEEEEEEEED!!!
 #txtspeed normal
 for now theres slow fast and normal but i might make it a scale from 1 to 100
 And thats the end!
+There are many a more things that are posible but this is what i have so far
 #txtspeed fast
 Thank you for paying attention 
+#vfx cutscene despair
+""
 
