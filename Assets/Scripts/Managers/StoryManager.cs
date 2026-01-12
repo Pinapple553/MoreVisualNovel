@@ -43,7 +43,11 @@ public class StoryManager : MonoBehaviour
 
     [Header("Story Settings")]
     [SerializeField]
+    private float normalTextSpeed = 0.05f;
+    private float slowTextSpeed = 0.5f;
+    private float fastTextSpeed = 0.01f;
     public float textSpeed = 0.05f;
+
 
     //dialogue handling
     private GameObject choicesContainer; // Container for choice buttons
@@ -54,6 +58,9 @@ public class StoryManager : MonoBehaviour
     private Coroutine typingCoroutine;
     private bool isTyping;
     private bool choicesCreated = false;
+    private bool fastForwarding = false;
+    private bool autoPlaying = false;
+    Coroutine currentAuto;
 
     private InputSystem controls; //Input system
 
@@ -76,11 +83,8 @@ public class StoryManager : MonoBehaviour
                 AdvanceStory();
             }
         };
-
-        CreateBackgroundImage();
         CreateTextBox();
         CreateChoiceContainer();
-        //OrderCanvasItems();
 
         StartStory();
     }
@@ -107,6 +111,11 @@ public class StoryManager : MonoBehaviour
             string text = story.Continue().Trim();
             TypeDialogue(text);
             HandleTags();
+            if (story.currentChoices.Count > 0)// If choices exist, show them
+            {
+                ShowChoices();
+                return;
+            }
             return;
         }
         if (story.currentChoices.Count > 0)// If choices exist, show them
@@ -179,7 +188,18 @@ public class StoryManager : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 story.ChooseChoiceIndex(localChoice.index);
-                AdvanceStory();
+                if (fastForwarding)
+                {
+                    FastForward();
+                }
+                else if (autoPlaying)
+                {
+                    AutoAdvance();
+                }
+                else
+                {
+                    AdvanceStory();
+                }
             });
             choicesCreated = true;
         }
@@ -191,13 +211,6 @@ public class StoryManager : MonoBehaviour
             Destroy(t.gameObject);
         }
         choicesCreated = false;
-    }
-    void OrderCanvasItems()
-    {
-        textBoxInstance.transform.SetAsFirstSibling();
-        choicesContainer.transform.SetAsFirstSibling();
-        backgroudImageInstance.transform.SetAsFirstSibling();
-
     }
     void CreateChoiceContainer()
     {
@@ -220,10 +233,6 @@ public class StoryManager : MonoBehaviour
     void CreateTextBox()
     {
         textBoxInstance = Instantiate(textBoxPrefab, canvas.transform);
-    }
-    void CreateBackgroundImage()
-    {
-        //backgroudImageInstance = Instantiate(backgroudImagePrefab, canvas.transform);
     }
     void ChangeSpeaker(string spreakerName)
     {
@@ -386,20 +395,37 @@ public class StoryManager : MonoBehaviour
                     switch (splitTag[1])
                     {
                         case "slow":
-                            textSpeed = 0.5f;
+                            textSpeed = slowTextSpeed;
                             break;
                         case "normal":
-                            textSpeed = 0.05f;
+                            textSpeed = normalTextSpeed;
                             break;
                         case "fast":
-                            textSpeed = 0.01f;
+                            textSpeed = fastTextSpeed;
                             break;
                         default:
                             break;
                     }
                     break;
                 case "vfx":
-                    Debug.Log("VFX tag handling not implemented yet: " + tag);
+                    switch (splitTag[1])
+                    {
+                        case "screen_shake":
+                            if (splitTag.Length>2)
+                            {
+                                float.TryParse(splitTag[2], out float speed);
+                                visualEffectsManager.ShakeUI(speed, 15,true,true);
+                            }
+                            else
+                            {
+                                visualEffectsManager.ShakeUI();
+                            }
+
+                            break;
+                        default:
+                            break;
+                    }
+
                     break;
                 default:
                     Debug.Log("Unhandled tag: " + tag);
@@ -407,4 +433,91 @@ public class StoryManager : MonoBehaviour
             }
         }
     }
+    public void FastForward()
+    {
+        textSpeed = textSpeed / 5;
+
+        if (isTyping)
+        {
+            StopCoroutine(typingCoroutine);
+            currentDialogue.text = story.currentText;
+            isTyping = false;
+        }
+        StartAutoPlay(0.15f);
+    }
+    public void ToggleFastForward()
+    {
+        fastForwarding = !fastForwarding;
+        if (fastForwarding)
+        {
+            FastForward();
+        }
+        else
+        {
+            textSpeed = normalTextSpeed;
+            StopAutoPlay();
+        }
+    }
+    public void Skip()
+    {
+        StopAutoPlay();
+
+        while (story.canContinue)
+        {
+            story.Continue();
+        }
+        AdvanceStory();
+        ShowChoices();
+    }
+    public void ToggleAutoPlay(float delay =2f)
+    {
+        if (!autoPlaying)
+        {
+            StartAutoPlay(delay);
+        }
+        else
+        {
+            StopAutoPlay();
+        }
+    }
+    public void StartAutoPlay(float delay = 2f)
+    {
+        if (autoPlaying) return;
+
+        autoPlaying = true;
+        currentAuto = StartCoroutine(AutoAdvance(delay));
+    }
+    public void StopAutoPlay()
+    {
+        autoPlaying = false;
+
+        if (currentAuto != null)
+            StopCoroutine(currentAuto);
+    }
+    private IEnumerator AutoAdvance(float delay = 2f)
+    {
+        while (autoPlaying)
+        {
+            yield return new WaitUntil(() => !isTyping);
+
+            if (story.currentChoices.Count > 0)
+            {
+                autoPlaying = false;
+                yield break;
+            }
+
+            if (story.canContinue)
+            {
+                yield return new WaitForSeconds(delay);
+                AdvanceStory();
+            }
+            else
+            {
+                autoPlaying = false;
+                yield break;
+            }
+        }
+    }
+
 }
+

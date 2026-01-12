@@ -4,50 +4,42 @@ using UnityEngine;
 
 public class VisualEffectsManager : MonoBehaviour
 {
-    [SerializeField]
-    private Camera mainCamera;
-    [System.Serializable]
-    public class CameraAnimation
-    {
-        public string animationName;
-        public Animation animation;
-    }
-    public List<CameraAnimation> cameraAnimations;
+    [SerializeField] private RectTransform screenRoot;
 
-    bool isShaking = false;
-    Vector3 originalPosition;
-    public void ShakeCamera(float speed = 1, float intensity = 9900, bool horizontal = true, bool vertical = true)
-    {
-        float duration = 1000 * 1;
-        if (isShaking)
-        {
-            return;
-        }
-        StartCoroutine(Shake(duration, intensity, horizontal, vertical));
+    private Vector2 originalPos;
+    private Coroutine shakeRoutine;
 
-    }
-    private IEnumerator Shake(float duration, float intensity, bool horizontal, bool vertical)
+    public void ShakeUI(float duration = 1, float intensity = 15f, bool horizontal = true, bool vertical = true)
     {
-        Debug.Log("camshake");
-        originalPosition = mainCamera.transform.localPosition;
-        isShaking = true;
-        while (duration > 0)
+        float time = 0.3f * duration;
+        if (shakeRoutine != null)
+            StopCoroutine(shakeRoutine);
+
+        shakeRoutine = StartCoroutine(ShakeRoutine(time, intensity, horizontal, vertical));
+    }
+
+    private IEnumerator ShakeRoutine( float duration, float intensity, bool horizontal, bool vertical)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
         {
-            Vector3 shakeOffset = Vector3.zero;
+            Vector2 offset = Vector2.zero;
+
             if (horizontal)
-            {
-                shakeOffset.x = Random.Range(-1f, 1f) * intensity;
-            }
-            if (vertical)
-            {
-                shakeOffset.y = Random.Range(-1f, 1f) * intensity;
-            }
-            mainCamera.transform.localPosition = originalPosition + shakeOffset;
+                offset.x = Random.Range(-1f, 1f) * intensity;
 
-            duration -= Time.deltaTime;
+            if (vertical)
+                offset.y = Random.Range(-1f, 1f) * intensity;
+
+            screenRoot.anchoredPosition = originalPos + offset;
+
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-        mainCamera.transform.localPosition = originalPosition;
-        isShaking = false; 
-        yield return null;
+
+        screenRoot.anchoredPosition = new Vector3(0,0,0);
+        shakeRoutine = null;
     }
 }
+
