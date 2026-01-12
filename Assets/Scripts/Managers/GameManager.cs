@@ -11,7 +11,7 @@ public class GameHandler : MonoBehaviour
     [SerializeField]
     private InputSystem controls;
     [SerializeField]
-    private Canvas pauseScreen;
+    private GameObject pauseScreen;
     private void Awake()
     {
         controls = new InputSystem();
@@ -65,6 +65,6 @@ public class GameHandler : MonoBehaviour
     }
     public void PauseGame()
     {
-        pauseScreen.enabled = !pauseScreen.enabled;
+        pauseScreen.SetActive(!pauseScreen.activeSelf);
     }
 }

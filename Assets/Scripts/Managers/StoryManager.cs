@@ -392,6 +392,10 @@ public class StoryManager : MonoBehaviour
                     audioEffectsManager.PlayMusic(splitTag[1], loop);
                     break;
                 case "txtspeed":
+                    if (fastForwarding)
+                    {
+                        break;
+                    }
                     switch (splitTag[1])
                     {
                         case "slow":
@@ -421,6 +425,9 @@ public class StoryManager : MonoBehaviour
                                 visualEffectsManager.ShakeUI();
                             }
 
+                            break;
+                        case "cutscene":
+                            visualEffectsManager.PlayCutscene(splitTag[2]);
                             break;
                         default:
                             break;

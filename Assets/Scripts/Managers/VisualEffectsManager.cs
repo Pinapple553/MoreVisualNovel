@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UnityEngine.Video;
 
 public class VisualEffectsManager : MonoBehaviour
 {
@@ -9,6 +12,31 @@ public class VisualEffectsManager : MonoBehaviour
     private Vector2 originalPos;
     private Coroutine shakeRoutine;
 
+
+    [SerializeField] 
+    private VideoPlayer videoPlayer;
+    [SerializeField] 
+    private RawImage videoImage;
+    [SerializeField] 
+    private RenderTexture renderTexture;
+
+
+    [System.Serializable]
+    public class Cutscene
+    {
+        public string cutsceneName;
+        public VideoClip videoClip;
+    }
+    public List<Cutscene> cutscenes;
+    private Dictionary<string, VideoClip> lookup; //lookup dictionary for quick access to expressions
+    void Awake()
+    {
+        lookup = new Dictionary<string, VideoClip>();
+        foreach (var obj in cutscenes)
+        {
+            lookup[obj.cutsceneName] = obj.videoClip;
+        }
+    }
     public void ShakeUI(float duration = 1, float intensity = 15f, bool horizontal = true, bool vertical = true)
     {
         float time = 0.3f * duration;
@@ -41,5 +69,19 @@ public class VisualEffectsManager : MonoBehaviour
         screenRoot.anchoredPosition = new Vector3(0,0,0);
         shakeRoutine = null;
     }
+
+    public void PlayCutscene(string cutsceneName)
+    {
+        if (!lookup.TryGetValue(cutsceneName, out var clip))
+        {
+            Debug.LogWarning("Cutscene not found: " + cutsceneName);
+            return;
+        }
+
+        videoImage.gameObject.SetActive(true);
+        videoPlayer.clip = clip;
+        videoPlayer.Play();
+    }
+
 }
 

@@ -2,6 +2,7 @@
 #char set char1 0.8
 #char set char2 0.2
 Test: This is a demo of all the tag functions
+#vfx cutscene despair
 Are you ready?
     *[yes]
     THEN LETS GO!!!
