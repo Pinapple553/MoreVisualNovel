@@ -12,12 +12,6 @@ public class GameHandler : MonoBehaviour
     private InputSystem controls;
     [SerializeField]
     private GameObject pauseScreen;
-    private void Awake()
-    {
-        controls = new InputSystem();
-        controls.UI.Pause.performed += ctx => PauseGame();
-
-    }
     private void OnEnable()
     {
         controls.UI.Enable();
@@ -26,33 +20,37 @@ public class GameHandler : MonoBehaviour
     {
         controls.UI.Disable();
     }
-    void Update()
+    private void Awake()
     {
-        //NOTE: delete this quit functionality when a Pause Menu is added!
-        // if (Input.GetKey("escape")){
-        //         Application.Quit();
-        // }
-
-        // Stat tester:
-        //if (Input.GetKey("p")){
-        //       Debug.Log("Player Stat = " + playerStat1);
-        //}
+        controls = new InputSystem();
+        controls.UI.Pause.performed += ctx =>
+        {
+            if (SceneManager.GetActiveScene().name == "GameScene")
+            {
+                PauseGame();
+            }
+        };
     }
-
-    // void UpdateScore () {
-    //        textGameObject.text = "Score: " + score; }
-
     public void StartGame()
     {
-        Debug.Log("Start Game button clicked");
-        SceneManager.LoadScene("Scene1");
+        SceneManager.LoadScene("GameScene");
     }
-
+    public void LoadSavesScene()
+    {
+        SceneManager.LoadScene("LoadSavesScene");
+    }
+    public void SaveGameScene()
+    {
+        SceneManager.LoadScene("SaveGameScene");
+    }
     public void OpenSettings()
     {
         SceneManager.LoadScene("Settings");
     }
-
+    public void OpenCutscenes()
+    {
+        SceneManager.LoadScene("Cutscenes");
+    }
     public void ToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -66,5 +64,6 @@ public class GameHandler : MonoBehaviour
     public void PauseGame()
     {
         pauseScreen.SetActive(!pauseScreen.activeSelf);
+
     }
 }

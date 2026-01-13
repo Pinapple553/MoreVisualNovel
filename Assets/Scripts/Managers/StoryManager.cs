@@ -19,8 +19,6 @@ public class StoryManager : MonoBehaviour
 
     [Header("Scene Objects")]
     [SerializeField]
-    private Canvas canvas;
-    [SerializeField]
     private CharacterManager characterManager;
     [SerializeField]
     private BackgroundManager backgroundManager;
@@ -28,18 +26,18 @@ public class StoryManager : MonoBehaviour
     private AudioEffectsManager audioEffectsManager;
     [SerializeField]
     private VisualEffectsManager visualEffectsManager;
-
+    [SerializeField]
+    private Canvas canvas;
+    [SerializeField]
+    private TextMeshProUGUI dialogueText;
+    [SerializeField]
+    private TextMeshProUGUI speakerText;
+    [SerializeField]
+    private Image textBox;
 
     [Header("UI Prefabs")]
     [SerializeField]
-    private TextMeshProUGUI textPrefab;
-    [SerializeField]
-    private TextMeshProUGUI speakerPrefab;
-    [SerializeField]
     private Button buttonPrefab;
-    [SerializeField]
-    private Image textBoxPrefab;
-    //[SerializeField] private Image backgroudImagePrefab;
 
     [Header("Story Settings")]
     [SerializeField]
@@ -83,7 +81,6 @@ public class StoryManager : MonoBehaviour
                 AdvanceStory();
             }
         };
-        CreateTextBox();
         CreateChoiceContainer();
 
         StartStory();
@@ -128,7 +125,7 @@ public class StoryManager : MonoBehaviour
     {
         if (currentDialogue == null)
         {
-            currentDialogue = Instantiate(textPrefab, textBoxInstance.transform);
+            currentDialogue = dialogueText;
         }
         if (text.Contains(":"))
         {
@@ -146,7 +143,7 @@ public class StoryManager : MonoBehaviour
     {
         if (currentDialogue == null)
         {
-            currentDialogue = Instantiate(textPrefab, textBoxInstance.transform);
+            currentDialogue = dialogueText;
         }
         if (text.Contains(":"))
         {
@@ -194,7 +191,7 @@ public class StoryManager : MonoBehaviour
                 }
                 else if (autoPlaying)
                 {
-                    AutoAdvance();
+                    StartCoroutine(AutoAdvance());
                 }
                 else
                 {
@@ -230,15 +227,11 @@ public class StoryManager : MonoBehaviour
         layout.childAlignment = TextAnchor.LowerCenter;
         layout.spacing = 20f;
     }
-    void CreateTextBox()
-    {
-        textBoxInstance = Instantiate(textBoxPrefab, canvas.transform);
-    }
     void ChangeSpeaker(string spreakerName)
     {
         if (currentSpeakerText == null)
         {
-            currentSpeakerText = Instantiate(speakerPrefab, textBoxInstance.transform);
+            currentSpeakerText = speakerText;
         }
         currentSpeakerText.text = spreakerName;
     }
