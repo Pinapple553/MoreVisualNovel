@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameHandler : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private InputSystem controls;
