@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
@@ -13,9 +14,17 @@ public class SettingsManager : MonoBehaviour
     [SerializeField]
     private AudioEffectsManager audioEffectsManager;
     [SerializeField]
+    private StoryManager storyManager;
+    [SerializeField]
     private Slider BGMslider;
     [SerializeField]
     private Slider SFXslider;
+    [SerializeField]
+    private Slider textSpeedSlider;
+    [SerializeField]
+    private Slider autoTextSpeedSlider;
+    [SerializeField]
+    private Slider autoDelaySlider;
     [SerializeField]
     private Toggle fullscreenToggle;
     [SerializeField]
@@ -33,7 +42,9 @@ public class SettingsManager : MonoBehaviour
     private void Start()
     {
         ShowResolutions();
-        audioEffectsManager.PlayMusic("short_music", true);
+        SetTextSliderSettings();
+
+
     }
     public void SetBGMVolume(float volume)
     {
@@ -71,5 +82,29 @@ public class SettingsManager : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+    public void TextSpeed(float speed)
+    {
+        speed = 1f / speed;
+        storyManager.SetTextSpeed(speed);
+        Debug.Log(speed);
+    }
+    public void AutoTextSpeed(float speed)
+    {
+        speed = 1f / speed;
+        storyManager.SetAutoTextSpeed(speed);
+    }
+    public void AutoDelay(float delay)
+    {
+        storyManager.SetAutoDelay(delay);
+    }
+
+    private void SetTextSliderSettings()
+    {
+        textSpeedSlider.value = storyManager.currentTextSpeed*100f;
+        autoTextSpeedSlider.value = storyManager.autoTextSpeed*100f;
+        textSpeedSlider.value = storyManager.autoDelay;
+    }
+    
 }
 

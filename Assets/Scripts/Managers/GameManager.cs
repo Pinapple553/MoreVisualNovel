@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     private InputSystem controls;
     [SerializeField]
     private GameObject pauseScreen;
+    [SerializeField]
+    private GameObject settingsScreen;
+
+    private string lastOpenScene;
     private void OnEnable()
     {
         controls.UI.Enable();
@@ -31,29 +35,18 @@ public class GameManager : MonoBehaviour
             }
         };
     }
-    public void StartGame()
+    public void OpenScene(string scene)
     {
-        SceneManager.LoadScene("GameScene");
+        lastOpenScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(scene);
     }
-    public void LoadSavesScene()
+    public void CloseScene()
     {
-        SceneManager.LoadScene("LoadSavesScene");
-    }
-    public void SaveGameScene()
-    {
-        SceneManager.LoadScene("SaveGameScene");
-    }
-    public void OpenSettings()
-    {
-        SceneManager.LoadScene("Settings");
-    }
-    public void OpenCutscenes()
-    {
-        SceneManager.LoadScene("Cutscenes");
-    }
-    public void ToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
+        if (lastOpenScene == null)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        SceneManager.LoadScene(lastOpenScene);
     }
 
     public void QuitGame()
@@ -64,6 +57,9 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         pauseScreen.SetActive(!pauseScreen.activeSelf);
-
+    }
+    public void ShowSettings()
+    {
+        settingsScreen.SetActive(!settingsScreen.activeSelf);
     }
 }

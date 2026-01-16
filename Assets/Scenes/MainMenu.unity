@@ -827,6 +827,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1070530233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070530234}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1070530234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070530233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 434.05914, y: 323.79855, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1628574897}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1166402917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,16 +1181,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1467509089}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: OpenSettings
-        m_Mode: 1
+      - m_Target: {fileID: 1628574898}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Settings
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1346719374
@@ -1282,16 +1314,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1467509089}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
+      - m_Target: {fileID: 1628574898}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: NewGame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1391582246
@@ -1332,67 +1364,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391582243}
   m_CullTransparentMesh: 1
---- !u!1001 &1467509088
+--- !u!1001 &1628574896
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1070530234}
     m_Modifications:
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 434.05914
+      value: -88.13492
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 323.79855
+      value: -176.06909
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1944425768919598241, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5574551042583647986, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
+    - target: {fileID: 6906497899891176733, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
       propertyPath: m_Name
-      value: GameHandler
+      value: GameManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
---- !u!114 &1467509089 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
+--- !u!4 &1628574897 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5400626177792445128, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
+  m_PrefabInstance: {fileID: 1628574896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1628574898 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8909043381903442560, guid: fe7ad87a2c8074343a674ad822ae5022, type: 3}
-  m_PrefabInstance: {fileID: 1467509088}
+  m_CorrespondingSourceObject: {fileID: 163853344254268599, guid: 7742807a1549b144e81c333ad97ffde8, type: 3}
+  m_PrefabInstance: {fileID: 1628574896}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1483,16 +1520,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1467509089}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: LoadSavesScene
-        m_Mode: 1
+      - m_Target: {fileID: 1628574898}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: GameScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1659388725
@@ -1829,16 +1866,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1467509089}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
-        m_MethodName: OpenCutscenes
-        m_Mode: 1
+      - m_Target: {fileID: 1628574898}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Specials
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1825896849
@@ -2029,8 +2066,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1467509089}
-        m_TargetAssemblyTypeName: GameHandler, Assembly-CSharp
+      - m_Target: {fileID: 1628574898}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -2086,5 +2123,5 @@ SceneRoots:
   - {fileID: 88096142}
   - {fileID: 470582192}
   - {fileID: 1057536595}
-  - {fileID: 1467509088}
+  - {fileID: 1070530234}
   - {fileID: 1166402921}

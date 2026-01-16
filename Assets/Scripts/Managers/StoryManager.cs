@@ -2,10 +2,12 @@ using Ink.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static CharacterVisuals;
 
@@ -40,11 +42,11 @@ public class StoryManager : MonoBehaviour
     private Button buttonPrefab;
 
     [Header("Story Settings")]
-    [SerializeField]
-    private float normalTextSpeed = 0.05f;
-    private float slowTextSpeed = 0.5f;
-    private float fastTextSpeed = 0.01f;
-    public float textSpeed = 0.05f;
+    public float baseTextSpeed = 0.05f;
+    public float currentTextSpeed = 0.05f;
+    public float autoTextSpeed = 0.05f;
+    public float autoDelay = 2f;
+
 
 
     //dialogue handling
@@ -72,6 +74,9 @@ public class StoryManager : MonoBehaviour
     }
     void Awake()
     {
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+
         controls = new InputSystem();
         controls.UI.Advance.performed += ctx =>
         {
@@ -84,6 +89,8 @@ public class StoryManager : MonoBehaviour
         CreateChoiceContainer();
 
         StartStory();
+
+        }
     }
 
     // Creates a new Story object with the compiled story which we can then play!
@@ -164,7 +171,7 @@ public class StoryManager : MonoBehaviour
         foreach (char c in fullText)
         {
             textComponent.text += c;
-            yield return new WaitForSeconds(textSpeed);
+            yield return new WaitForSeconds(currentTextSpeed);
         }
         isTyping = false;
     }
@@ -191,7 +198,7 @@ public class StoryManager : MonoBehaviour
                 }
                 else if (autoPlaying)
                 {
-                    StartCoroutine(AutoAdvance());
+                    StartCoroutine(AutoAdvance(autoDelay));
                 }
                 else
                 {
@@ -392,13 +399,13 @@ public class StoryManager : MonoBehaviour
                     switch (splitTag[1])
                     {
                         case "slow":
-                            textSpeed = slowTextSpeed;
+                            currentTextSpeed = baseTextSpeed * 5;
                             break;
                         case "normal":
-                            textSpeed = normalTextSpeed;
+                            currentTextSpeed = baseTextSpeed;
                             break;
                         case "fast":
-                            textSpeed = fastTextSpeed;
+                            currentTextSpeed = baseTextSpeed / 5;
                             break;
                         default:
                             break;
@@ -435,7 +442,7 @@ public class StoryManager : MonoBehaviour
     }
     public void FastForward()
     {
-        textSpeed = textSpeed / 5;
+        currentTextSpeed = baseTextSpeed / 5;
 
         if (isTyping)
         {
@@ -443,7 +450,7 @@ public class StoryManager : MonoBehaviour
             currentDialogue.text = story.currentText;
             isTyping = false;
         }
-        StartAutoPlay(0.15f);
+        StartAutoPlay(autoDelay);
     }
     public void ToggleFastForward()
     {
@@ -454,7 +461,7 @@ public class StoryManager : MonoBehaviour
         }
         else
         {
-            textSpeed = normalTextSpeed;
+            currentTextSpeed = baseTextSpeed;
             StopAutoPlay();
         }
     }
@@ -469,7 +476,7 @@ public class StoryManager : MonoBehaviour
         AdvanceStory();
         ShowChoices();
     }
-    public void ToggleAutoPlay(float delay =2f)
+    public void ToggleAutoPlay(float delay)
     {
         if (!autoPlaying)
         {
@@ -480,21 +487,23 @@ public class StoryManager : MonoBehaviour
             StopAutoPlay();
         }
     }
-    public void StartAutoPlay(float delay = 2f)
+    public void StartAutoPlay(float delay)
     {
         if (autoPlaying) return;
 
+        currentTextSpeed = autoTextSpeed;
         autoPlaying = true;
         currentAuto = StartCoroutine(AutoAdvance(delay));
     }
     public void StopAutoPlay()
     {
         autoPlaying = false;
+        currentTextSpeed = baseTextSpeed;
 
         if (currentAuto != null)
             StopCoroutine(currentAuto);
     }
-    private IEnumerator AutoAdvance(float delay = 2f)
+    private IEnumerator AutoAdvance(float delay)
     {
         while (autoPlaying)
         {
@@ -517,6 +526,18 @@ public class StoryManager : MonoBehaviour
                 yield break;
             }
         }
+    }
+    public void SetTextSpeed(float newTextSpeed)
+    {
+        currentTextSpeed = newTextSpeed;
+    }
+    public void SetAutoDelay(float newAutoDelay)
+    {
+        autoDelay = newAutoDelay;
+    }
+    public void SetAutoTextSpeed(float newAutoTextSpeed)
+    {
+        autoTextSpeed = newAutoTextSpeed;
     }
 
 }
