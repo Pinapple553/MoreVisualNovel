@@ -10,32 +10,39 @@ VAR suspicion = 0
 
 ->StartScene
 ===== StartScene ===
-A gold gust breezed past
+A cold gust breezed past
 The cold bench beneath you creaks
 You: My head...
 You look around the echoing builing
 You: ... A church?
-Unknown voice: Morė! 
+Unknown voice: morė! 
 You: huh?
-Unknown voice: I'm so glad you woke up!
+Unknown voice: I am so glad you woke up!
 You: Gab?
-Gab: Are you cold? You could take my gloves.
-*My head hurts.
-    Gab: The cold probably got to you, we have to warm you up.
-*It's okay[.] I'm not that cold.
-    Gab: Oh that's not good- have you gotten frostbite?
-    Gab: Here, let me see your hands.
-    Gab: Well I think we should light a fire either way, I'm not sure how long well have to be here...
-*I'd appriciate that...
-    Gab: Oh! Yeah here take them!
+Gab: Are you cold?
+Gab: You could take my gloves.
+*It's okay[]. I am not all that cold.
+    Gab: Oh really? Hmm... I am not sure if that is a good thing.
+    Gab: You might have frostbite, here let me look at your hands.
+    #vfx cutscene hands
+    _
+    Gab: Well... 
+    Gab: I think we should light a fire either way, I'm not sure how long well have to be here...
+*I would appriciate that[]...
+    Gab: Really? Yeah here take them!
     ~gloves_on = true
-    Gab:But it's still freezing, we need to warm you up.
-    ** Thank you
+    Gab: I hope they help atleast a little bit.
+    Gab: But it is still freezing, we need to light a fire and warm you up.
+    **Thank you
+    Gab: No worries! I am glad you took them.
     **...
+*My head hurts[].
+    Gab: Oh that is not good at all.
+    Gab: The cold probably got to you, we really have to warm you up.
     
 -Gab: Um... 
-Gab: I tried to light a fire while you where...
-Gab: It could have gone better to say the least hehe.
+Gab: Right, I was going to light a fire while you where passed out, but I...
+Gab: Well I did not find anything to light it with.
 *Where are we?
     Gab: I... I'm not quite sure actually.
     Gab: After I found you in the forest I tried carrying you back but I got lost and well... we ended up here.
@@ -50,7 +57,7 @@ Gab: It could have gone better to say the least hehe.
         ***I don't remember
             Gab: You... You don't remember?
     **[Carrying?] You tried carrying me?
-*Why are we here?
+*Why are you here?
     Gab: Right... You don't remember do you? 
 *Who are you?
     #char gab dread
@@ -82,9 +89,9 @@ VAR asked_about_festival =false
     #char gab gleam
     Gab: Oh! Okay thats good! I was worried about you for a bit there.
     Something stirs within you
-    Gab: Well then we ought to try to light that fire no?
+    Gab: Well then, we ought to ?
     **Yes[], Let's do it.
-    ->LightFire
+    ->LookForLighter
     **No[].
         Gab: ...
         {suspicion>-1: 
@@ -92,7 +99,7 @@ VAR asked_about_festival =false
             Gab: Did something happen?
         -else:
             Gab: Heh this is not the time for jokes, lets go.
-            ->LightFire
+            ->LookForLighter
         }
 *...
     {not asked_about_festival:
@@ -107,11 +114,23 @@ VAR asked_about_festival =false
 -->BackStoryFestival
 
 ==== BackStoryFestival ===
-Gab tells you about what he remembers
+Gab tells you about what he remembers the end
+->END
+
+==== LookForLighter ===
+Gab: I looked around near the altar but i have not looked much else where.
+Gab: Where do you think it is best to look first?
+*Altar
+Gab: The altar?
+Gab: Well i guess it is never bad to double check things.
+Gab: Okay!
+*Basement door
+
+-tehe that is all
 ->END
 
 ==== LightFire ===
-You light the fire
+you light the fire the end
 ->END
 
 

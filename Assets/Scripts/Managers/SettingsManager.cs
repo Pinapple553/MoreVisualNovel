@@ -85,7 +85,7 @@ public class SettingsManager : MonoBehaviour
 
     public void TextSpeed(float speed)
     {
-        speed = 1f / speed;
+        speed = 0.5f / speed;
         storyManager.SetTextSpeed(speed);
         Debug.Log(speed);
     }

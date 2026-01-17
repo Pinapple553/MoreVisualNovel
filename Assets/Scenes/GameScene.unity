@@ -302,6 +302,41 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3063585037364018226, guid: 12b33b7f5fe12a945a9f33f6161d972a, type: 3}
   m_PrefabInstance: {fileID: 332838800}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &335239106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335239107}
+  m_Layer: 5
+  m_Name: ChoiceContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &335239107
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335239106}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0499998, y: 1.0499998, z: 1.0499998}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1528318227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 666.718, y: 220.14}
+  m_SizeDelta: {x: 446.158, y: 714.55}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &373929036
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +667,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 207045691195454462, guid: 2ac8145edce041e43826db67fc0005e5, type: 3}
       propertyPath: m_Name
-      value: TextBoxTemp
+      value: TextBox
       objectReference: {fileID: 0}
     - target: {fileID: 207045691195454462, guid: 2ac8145edce041e43826db67fc0005e5, type: 3}
       propertyPath: m_IsActive
@@ -3034,6 +3069,7 @@ RectTransform:
   - {fileID: 1315176096}
   - {fileID: 2087056241}
   - {fileID: 504710832}
+  - {fileID: 335239107}
   - {fileID: 572174768}
   m_Father: {fileID: 373929041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4025,6 +4061,10 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 1281472617}
+    - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
+      propertyPath: inkJSONAsset
+      value: 
+      objectReference: {fileID: 4900000, guid: e643d0148a15aca4fa36c9ccd3ad8c8d, type: 3}
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: characterManager
       value: 
