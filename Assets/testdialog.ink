@@ -10,20 +10,19 @@ VAR suspicion = 0
 
 ->StartScene
 ===== StartScene ===
-A cold gust breezed past
 The cold bench beneath you creaks
 You: My head...
 You look around the echoing builing
 You: ... A church?
 Unknown voice: morė! 
 You: huh?
-Unknown voice: I am so glad you woke up!
+Unknown voice: I'm so glad you woke up!
 You: Gab?
-Gab: Are you cold?
-Gab: You could take my gloves.
-*It's okay[]. I am not all that cold.
-    Gab: Oh really? Hmm... I am not sure if that is a good thing.
-    Gab: You might have frostbite, here let me look at your hands.
+Gab: Yeah, it's me!
+Gab: Are you cold? Here take my gloves.
+*It's okay[]. I'm not all that cold.
+    Gab: Oh really? Hmm... I'm not sure if that is a good thing. You might have frostbite!
+    Gab: Here, let me look at your hands.
     #vfx cutscene hands
     _
     Gab: Well... 
@@ -37,7 +36,7 @@ Gab: You could take my gloves.
     Gab: No worries! I am glad you took them.
     **...
 *My head hurts[].
-    Gab: Oh that is not good at all.
+    Gab: Oh that's not good at all.
     Gab: The cold probably got to you, we really have to warm you up.
     
 -Gab: Um... 
@@ -114,8 +113,51 @@ VAR asked_about_festival =false
 -->BackStoryFestival
 
 ==== BackStoryFestival ===
-Gab tells you about what he remembers the end
-->END
+Gab: Ofcourse you can! But hurry I think they're going to be fighting soon.
+morė: Right. I'll get some for you too, just stay here.
+Gab: Oh thank yo-
+Gab: Like always, you run away before I can thank you.
+I waited for you, the performance came and passed and you still didn't come back.
+Gab: I wonder what's taking so long...
+It wasn't like you to take so long but you seemed to be enjoying yourself so I didn't think much of it.
+
+Gab: Um excuse me, you haven't happened to see morė around here have you?
+Pancake lady: Hmm.. oh that one with the red hair right? 
+Pancake lady: Oh right yes! They where standing around here a while ago but I think they ran away without taking any pancakes.
+Pancake lady: Speaking of which, you better take some for both you and that short one. You kids need more meat on your bones if you want to survive this cold.
+Gab: Hehe I'll get some later if that's okay. Do you happen to remember what direction morė ran off to?
+Pancake lady: Ah what was it now, I think somewhere twoards that forest over theres. I think some other kids ran with them actually.
+#char gab dread
+Pancake lady: But sho now! Youre holding up the line.
+Gab: Oh right, sorry.
+//near forest
+Gab: You're sure morė went inside?
+Kanapinis: Look Gabijus, like i said no, I'm not sure it was your friend but yes, i saw someone with red hair run twoards there.
+Gab: I'm going to go look! If you see my sister or parents please tell them.
+Kanapinis: Uhuh I'll try.
+Lasinis: Don't worry Gabijus, go look! We'll tell your parents! 
+Gab: Thank you!
+//in forest
+Gab: I can't see anyone and the festival is to loud there's no way ill hear them.
+I'm not sure for how long i looked but before i knew it the sun had set.
+Ofcourse I... I wasn't going to give up on looking for you but I knew if i got lost aswell it would only be worse for us both.
+But luckily as I was trying to find my way back i heard a really weird sound from somewhere deeper in the forest.
+I wasnt sure what it was but at that point i didn't much care adout what it was. I ran twoards it and well I found you...
+
+Gab: morė?
+Gab: morė! What are you doing? 
+Gab: Oh God you're freezing.
+Gab:...
+Gab: morė?
+Gab: hello? morė please, please say something!
+//snow starts
+Gab: No please don't... Hold on for a bit okay? I'll get you back.
+
+I... I was so sure I was going twoards the sound of the festival but...  Well the storm only got denser and I must have gotten turned around at some point.
+I honestly have no idea how but when we made it out of the forest i couldn't see the village at all.
+But I thought I saw something though the storm and walked twoards it. Turns out it was a church and lucky for us the front door was completly unlocked!
+So um... that was how we ended up here.
+->AfterBackStoryFestival
 
 ==== LookForLighter ===
 Gab: I looked around near the altar but i have not looked much else where.
@@ -133,4 +175,10 @@ Gab: Okay!
 you light the fire the end
 ->END
 
+=== AfterBackStoryFestival ===
+//end of flashback
+Gab: I'm really sorry, if I had only...
+Gab: No! This is no time for that, how are you doing?
+END
+->END
 
