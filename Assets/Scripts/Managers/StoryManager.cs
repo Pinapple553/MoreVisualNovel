@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static CharacterVisuals;
 
-// This is a super bare bones example of how to play and display a ink story in Unity.
 public class StoryManager : MonoBehaviour
 {
     [Header("Story")]
