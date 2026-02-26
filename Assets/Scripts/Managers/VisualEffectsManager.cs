@@ -8,7 +8,6 @@ using UnityEngine.Video;
 public class VisualEffectsManager : MonoBehaviour
 {
     [SerializeField] private RectTransform screenRoot;
-
     private Vector2 originalPos;
     private Coroutine shakeRoutine;
 

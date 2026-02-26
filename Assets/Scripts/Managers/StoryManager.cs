@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -35,6 +34,8 @@ public class StoryManager : MonoBehaviour
     private TextMeshProUGUI speakerText;
     [SerializeField]
     private Image textBox;
+    [SerializeField]
+    private GameObject choicesContainer; 
 
     [Header("UI Prefabs")]
     [SerializeField]
@@ -49,7 +50,6 @@ public class StoryManager : MonoBehaviour
 
 
     //dialogue handling
-    private GameObject choicesContainer; // Container for choice buttons
     private Image textBoxInstance;
     private Image backgroudImageInstance;
     private TextMeshProUGUI currentDialogue;
@@ -77,21 +77,25 @@ public class StoryManager : MonoBehaviour
         {
 
         controls = new InputSystem();
-        controls.UI.Advance.performed += ctx =>
-        {
-            GameObject clicked = EventSystem.current.currentSelectedGameObject;
-            if (!(clicked != null && clicked.GetComponent<Button>() != null))   // ignores clicks on buttons so story dosn't advance twice when making a choice
+            controls.UI.Advance.performed += ctx =>
             {
-                AdvanceStory();
-            }
-        };
-        CreateChoiceContainer();
+                GameObject clicked = EventSystem.current.currentSelectedGameObject;
+                if (!(clicked != null && clicked.GetComponent<Button>() != null))   // ignores clicks on buttons so story dosn't advance twice when making a choice
+                {
+                    AdvanceStory();
+                }
+            };
 
         StartStory();
 
         }
     }
 
+
+    public Story GetCurrentStory()
+    {
+        return story;
+    }
     // Creates a new Story object with the compiled story which we can then play!
     void StartStory()
     {
@@ -214,24 +218,6 @@ public class StoryManager : MonoBehaviour
             Destroy(t.gameObject);
         }
         choicesCreated = false;
-    }
-    void CreateChoiceContainer()
-    {
-        choicesContainer = new GameObject("ChoicesContainer");
-        choicesContainer.transform.SetParent(canvas.transform, false);
-
-        RectTransform rect = choicesContainer.AddComponent<RectTransform>();
-        rect.anchorMin = new Vector2(1f, 0);
-        rect.anchorMax = new Vector2(1f, 0);
-        rect.pivot = new Vector2(1f, 0);
-        rect.anchoredPosition = new Vector2(-80, 350);
-        rect.sizeDelta = new Vector2(350, 600);
-
-        VerticalLayoutGroup layout = choicesContainer.AddComponent<VerticalLayoutGroup>();
-        layout.childForceExpandHeight = false;
-        layout.childForceExpandWidth = true;
-        layout.childAlignment = TextAnchor.LowerCenter;
-        layout.spacing = 20f;
     }
     void ChangeSpeaker(string spreakerName)
     {
