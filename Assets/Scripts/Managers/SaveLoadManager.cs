@@ -8,8 +8,17 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] private BackgroundManager backgroundManager;
     private string saveFolder;
 
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         saveFolder = Application.persistentDataPath + "/Saves/";
         if (!Directory.Exists(saveFolder))
         {

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,11 @@ public class SaveLoadUI : MonoBehaviour
     [SerializeField] private GameObject saveContainer;
     [SerializeField] private GameObject saveSlotPrefab;
 
-    [SerializeField] private GameObject openSaveContainer;
+    [Header("Open Save Container")]
+    [SerializeField] private Image openSlotImage;
+    [SerializeField] private TMP_Text openSlotNumber;
+    [SerializeField] private TMP_Text openSlotDate;
+    [SerializeField] private TMP_Text openSlotText; 
 
     private void Awake()
     {
@@ -24,8 +29,6 @@ public class SaveLoadUI : MonoBehaviour
         Debug.Log("Opening save page: " + page);
         ShowSaveSlots(page);
     }
-
-
     private void ShowSaveSlots(int page) //shows the save slots for the specified page
     {
         // Clear existing slots
@@ -54,11 +57,11 @@ public class SaveLoadUI : MonoBehaviour
     }
     public void OpenSlot(SaveSlot slot)
     {
-        if (currentlyOpenSlot != null)
-            currentlyOpenSlot.ShowOptions(false);
+        //penSlotImage.sprite = GetSaveImage(slot.GetComponent<SaveSlot>().GetPage(), slot.GetComponent<SaveSlot>().GetSlot());
+        openSlotNumber.text = slot.GetSaveNumber();
+        openSlotDate.text = slot.GetSaveDate();
+        openSlotText.text = slot.GetSaveText();
 
-        currentlyOpenSlot = slot;
-        slot.ShowOptions(true);
     }
 
     public void CloseAll()
@@ -81,8 +84,5 @@ public class SaveLoadUI : MonoBehaviour
         }
 
     }
-    public void OnBackgroundClicked()
-    {
-        CloseAll();
-    }
+
 }

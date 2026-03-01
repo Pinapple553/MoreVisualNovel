@@ -9,37 +9,37 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private int slot;
 
     [SerializeField] private Image image;
-    [SerializeField] private TMP_Text slotText;
+    [SerializeField] private TMP_Text slotNumber;
+    [SerializeField] private TMP_Text slotdate;
     [SerializeField] private GameObject optionsContainer;
+    [SerializeField] private Button saveButton;
+    [SerializeField] private Button loadButton;
 
-    [SerializeField] private SaveLoadUI uIManager; 
-
-    public void OnSlotClicked()
-    {
-        SaveLoadUI.Instance.OpenSlot(this);
-    }
-    public void SetData(GameData data, int pageNum =1, int slotNum =1)
+    public void SetData(GameData data, int pageNum, int slotNum)
     {
         page = pageNum;
         slot = slotNum;
-        //int number = (pageNum-1)*16+slotNum;
-        //slotText.text = "NO."+number.ToString();
-        Sprite sprite = SaveLoadUI.Instance.GetSaveImage(pageNum, slotNum);
+        int number = (pageNum-1)*16+slotNum;
+        slotNumber.text = "NO."+number.ToString();
 
-        if (sprite != null)
+        if (data != null)
         {
-            image.sprite = sprite;
-            image.color = Color.white;
+            slotdate.text = data.dateTime;
+            image.sprite = Resources.Load<Sprite>($"Backgrounds/{data.background_id}");
         }
         else
         {
-            image.color = Color.gray;
+            slotdate.text = "Empty";
+            image.color = Color.black;
         }
     }
-
     public void ShowOptions(bool show)
     {
         //uIManager.HideAllOptions();
+        if (GameManager.Instance.currentStory == null) 
+        {
+            saveButton.interactable = false;
+        }
         optionsContainer.SetActive(show);
         //need to make it so you cant select other slots while options are open
     }
@@ -50,7 +50,7 @@ public class SaveSlot : MonoBehaviour
     public void OnSavePressed()
     {
         SaveLoadManager.Instance.SaveGame(GameManager.Instance.currentStory, page, slot);
-        uIManager.OpenSavePage(page); //refresh the save slots to show the new save data
+        SaveLoadUI.Instance.OpenSavePage(page); //refresh the save slots to show the new save data
     }
     public void OnLoadPressed()
     {
@@ -68,9 +68,40 @@ public class SaveSlot : MonoBehaviour
         SaveLoadManager.Instance.DeleteSave(page, slot);
         SaveLoadUI.Instance.OpenSavePage(page);
     }
-    public void Refresh()
+    public void OnSlotHover()
     {
-        // Update preview text, time, etc
+        SaveLoadUI.Instance.OpenSlot(this);
     }
 
+    public string GetSaveNumber()
+    {
+        int number = (page - 1) * 16 + slot;
+        return number.ToString();
+    }
+    public int GetPage()
+    {
+        return page;
+    }
+    public int GetSlot()
+    {
+        return slot;
+    }
+    public string GetSaveDate()
+    {
+        GameData data = SaveLoadManager.Instance.GetSaveData(page, slot);
+        if (data != null)
+        {
+            return data.dateTime;
+        }
+        return "No Save";
+    }
+    public string GetSaveText()
+    {
+        GameData data = SaveLoadManager.Instance.GetSaveData(page, slot);
+        if (data != null)
+        {
+            return data.previewText;
+        }
+        return "No Save";
+    }
 }

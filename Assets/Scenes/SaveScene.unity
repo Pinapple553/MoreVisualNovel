@@ -347,8 +347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: -145.96474}
-  m_SizeDelta: {x: 351, y: 221.54}
+  m_AnchoredPosition: {x: 0.000061035156, y: -186.13}
+  m_SizeDelta: {x: 351, y: 301.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237631848
 MonoBehaviour:
@@ -397,8 +397,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -977,8 +977,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.000061, y: 44.035267}
-  m_SizeDelta: {x: 154.94, y: 46}
+  m_AnchoredPosition: {x: 1, y: 47.19}
+  m_SizeDelta: {x: 154.94, y: 39.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631435131
 MonoBehaviour:
@@ -1213,6 +1213,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5288013241079090662, guid: ba834c4237da275479fca637011ff0b7, type: 3}
   m_PrefabInstance: {fileID: 764960550}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &764960552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6772840426708646831, guid: ba834c4237da275479fca637011ff0b7, type: 3}
+  m_PrefabInstance: {fileID: 764960550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebf06e392e4a06489204c4c3d258f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundManager
 --- !u!1001 &846744072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1672,7 +1683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07714a8c8210074a88f0d44ae777c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveLoadManager
-  backgroundManager: {fileID: 0}
+  backgroundManager: {fileID: 764960552}
 --- !u!4 &1354017732
 Transform:
   m_ObjectHideFlags: 0
@@ -2411,7 +2422,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveUIManager
   saveContainer: {fileID: 43381905}
   saveSlotPrefab: {fileID: 6763222818327700345, guid: 294e4a721f817884980d796e51c707a5, type: 3}
-  openSaveContainer: {fileID: 519125550}
+  openSlotImage: {fileID: 1972300512}
+  openSlotNumber: {fileID: 631435131}
+  openSlotDate: {fileID: 2056874814}
+  openSlotText: {fileID: 237631848}
 --- !u!4 &1927863219
 Transform:
   m_ObjectHideFlags: 0
@@ -2673,8 +2687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.000061, y: -1.5147285}
-  m_SizeDelta: {x: 209.83, y: 45.11}
+  m_AnchoredPosition: {x: 0.0012884, y: -0.08}
+  m_SizeDelta: {x: 351, y: 42.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056874814
 MonoBehaviour:
