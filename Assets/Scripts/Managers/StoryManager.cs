@@ -1,8 +1,6 @@
 using Ink.Runtime;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +33,11 @@ public class StoryManager : MonoBehaviour
     [SerializeField]
     private Image textBox;
     [SerializeField]
-    private GameObject choicesContainer; 
+    private GameObject choicesContainer;
+    [SerializeField]
+    private GameObject pauseScreen;
+    [SerializeField]
+    private GameObject settingsScreen;
 
     [Header("UI Prefabs")]
     [SerializeField]
@@ -76,7 +78,7 @@ public class StoryManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "GameScene")
         {
 
-        controls = new InputSystem();
+            controls = new InputSystem();
             controls.UI.Advance.performed += ctx =>
             {
                 GameObject clicked = EventSystem.current.currentSelectedGameObject;
@@ -85,8 +87,15 @@ public class StoryManager : MonoBehaviour
                     AdvanceStory();
                 }
             };
+            controls.UI.Pause.performed += ctx =>
+            {
+                if (SceneManager.GetActiveScene().name == "GameScene")
+                {
+                    PauseGame();
+                }
+            };
 
-        StartStory();
+            StartStory();
 
         }
     }
@@ -100,6 +109,22 @@ public class StoryManager : MonoBehaviour
     void StartStory()
     {
         story = new Story(inkJSONAsset.text);
+        GameManager.Instance.currentStory = story;
+
+        if (GameManager.Instance.loadFromSave)
+        {
+            GameData data = SaveLoadManager.Instance
+                .LoadGameData(GameManager.Instance.loadPage, GameManager.Instance.loadSlot);
+
+            if (data != null)
+            {
+                story.state.LoadJson(data.storyJson);
+                backgroundManager.ChangeBackground(data.background_id);
+            }
+
+            GameManager.Instance.loadFromSave = false;
+        }
+
         AdvanceStory();
     }
     void AdvanceStory()
@@ -130,6 +155,7 @@ public class StoryManager : MonoBehaviour
             ShowChoices();
             return;
         }
+        GameManager.Instance.currentStory = story;
     }
     void ShowDialogue(string text)
     {
@@ -171,9 +197,9 @@ public class StoryManager : MonoBehaviour
     {
         isTyping = true;
         textComponent.text = "";
-        foreach (char c in fullText)
-        {
-            textComponent.text += c;
+            for (int i = 0; i < fullText.Length; i++)
+            {
+            textComponent.text = fullText.Substring(0, i + 1);
             yield return new WaitForSeconds(currentTextSpeed);
         }
         isTyping = false;
@@ -184,9 +210,6 @@ public class StoryManager : MonoBehaviour
         foreach (Choice choice in story.currentChoices)
         {
             Button button = Instantiate(buttonPrefab, choicesContainer.transform, false);
-            TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = choice.text.Trim();
-
             // Gets the text from the button prefab
             TextMeshProUGUI choiceText = button.GetComponentInChildren<TextMeshProUGUI>();
             choiceText.text = choice.text.Trim();
@@ -348,7 +371,7 @@ public class StoryManager : MonoBehaviour
 
                 case "sfx":
                     if (splitTag.Length < 2) break;
-                    if (splitTag.Length >2 && float.TryParse(splitTag[2], out float volume))
+                    if (splitTag.Length > 2 && float.TryParse(splitTag[2], out float volume))
                     {
                         audioEffectsManager.PlaySFX(splitTag[1], volume);
                     }
@@ -360,7 +383,7 @@ public class StoryManager : MonoBehaviour
                     break;
                 case "music":
                     if (splitTag.Length < 2) break;
-                    if (splitTag[1] =="stop")
+                    if (splitTag[1] == "stop")
                     {
                         audioEffectsManager.StopMusic();
                         break;
@@ -400,10 +423,10 @@ public class StoryManager : MonoBehaviour
                     switch (splitTag[1])
                     {
                         case "screen_shake":
-                            if (splitTag.Length>2)
+                            if (splitTag.Length > 2)
                             {
                                 float.TryParse(splitTag[2], out float speed);
-                                visualEffectsManager.ShakeUI(speed, 15,true,true);
+                                visualEffectsManager.ShakeUI(speed, 15, true, true);
                             }
                             else
                             {
@@ -525,5 +548,13 @@ public class StoryManager : MonoBehaviour
         autoTextSpeed = newAutoTextSpeed;
     }
 
+    public void PauseGame()
+    {
+        pauseScreen.SetActive(!pauseScreen.activeSelf);
+    }
+    public void ShowSettings()
+    {
+        settingsScreen.SetActive(!settingsScreen.activeSelf);
+    }
 }
 

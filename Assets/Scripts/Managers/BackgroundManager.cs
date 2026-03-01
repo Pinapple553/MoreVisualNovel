@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
 {
+    public string CurrentBackgroundID { get; private set; } //for saving /loading purposes, stores the current background ID
+
     [System.Serializable]
     public class BackgroundImage 
     {
         public string backgroundName; 
         public Sprite sprite; 
     }
-    public List<BackgroundImage> backgrounds; 
+    public List<BackgroundImage> backgrounds;
 
     [SerializeField]
     private Image backgroundImageUI;
@@ -27,6 +29,8 @@ public class BackgroundManager : MonoBehaviour
 
     public void ChangeBackground(string backgroundId) 
     {
+        CurrentBackgroundID = backgroundId;
+
         if (lookup.TryGetValue(backgroundId, out var sprite))
         {
             backgroundImageUI.sprite = sprite;

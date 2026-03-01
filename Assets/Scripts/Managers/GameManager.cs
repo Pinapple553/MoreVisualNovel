@@ -1,64 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using Ink.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private InputSystem controls;
-    [SerializeField]
-    private GameObject pauseScreen;
-    [SerializeField]
-    private GameObject settingsScreen;
+    public static GameManager Instance;
+
+    public bool loadFromSave = false;
+    public int loadPage;
+    public int loadSlot;
+    public Story currentStory;
+
+    public bool isInGame = false;
 
     private string lastOpenScene;
-    private void OnEnable()
-    {
-        controls.UI.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.UI.Disable();
-    }
+
     private void Awake()
     {
-        controls = new InputSystem();
-        controls.UI.Pause.performed += ctx =>
+        //ensures only one instance of GameManager exists
+        if (Instance == null)
         {
-            if (SceneManager.GetActiveScene().name == "GameScene")
-            {
-                PauseGame();
-            }
-        };
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    public void OpenScene(string scene)
+    public void OpenScene(string scene) //opens the specified scene and saves the name of the currently open scene so it can be returned to later
     {
         lastOpenScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(scene);
     }
-    public void CloseScene()
+    public void CloseScene() //returns to the last open scene, if there is one, otherwise it returns to the main menu
     {
-        if (lastOpenScene == null)
+        if (string.IsNullOrEmpty(lastOpenScene))
         {
             SceneManager.LoadScene("MainMenu");
+            return;
         }
+
         SceneManager.LoadScene(lastOpenScene);
     }
 
-    public void QuitGame()
+    public void QuitGame() //quits the game, if in the editor it stops play mode instead
     {
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        //Application.Quit();
+    #else
+        Application.Quit();
+    #endif
     }
-    public void PauseGame()
-    {
-        pauseScreen.SetActive(!pauseScreen.activeSelf);
-    }
-    public void ShowSettings()
-    {
-        settingsScreen.SetActive(!settingsScreen.activeSelf);
-    }
+
 }
