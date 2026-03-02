@@ -93,7 +93,7 @@ public class StoryManager : MonoBehaviour
                 {
                     PauseGame();
                 }
-            };
+            }; 
 
             StartStory();
 
@@ -108,7 +108,14 @@ public class StoryManager : MonoBehaviour
     // Creates a new Story object with the compiled story which we can then play!
     void StartStory()
     {
-        story = new Story(inkJSONAsset.text);
+        if(GameManager.Instance.currentStory != null)
+        {
+            story = GameManager.Instance.currentStory;
+        }
+        else
+        {
+            story = new Story(inkJSONAsset.text);
+        }
         GameManager.Instance.currentStory = story;
 
         if (GameManager.Instance.loadFromSave)

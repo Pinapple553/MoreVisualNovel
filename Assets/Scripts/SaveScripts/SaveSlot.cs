@@ -35,13 +35,26 @@ public class SaveSlot : MonoBehaviour
     }
     public void ShowOptions(bool show)
     {
-        //uIManager.HideAllOptions();
+        SaveLoadUI.Instance.HideAllOptions();
         if (GameManager.Instance.currentStory == null) 
         {
             saveButton.interactable = false;
         }
+        else
+        {
+            saveButton.interactable = true;
+        }
+        if (!SaveLoadManager.Instance.HasSave(page, slot))
+        {
+            loadButton.interactable = false;
+            deleteButton
+        }
+        else
+        {
+            loadButton.interactable = true;
+        }
+
         optionsContainer.SetActive(show);
-        //need to make it so you cant select other slots while options are open
     }
     public void HideOptions()
     {
@@ -55,8 +68,9 @@ public class SaveSlot : MonoBehaviour
     public void OnLoadPressed()
     {
         if (!SaveLoadManager.Instance.HasSave(page, slot))
+        {
             return;
-
+        }
         GameManager.Instance.loadFromSave = true;
         GameManager.Instance.loadPage = page;
         GameManager.Instance.loadSlot = slot;
