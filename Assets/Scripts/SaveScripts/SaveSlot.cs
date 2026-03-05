@@ -14,6 +14,7 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private GameObject optionsContainer;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button loadButton;
+    [SerializeField] private Button deleteButton;
 
     public void SetData(GameData data, int pageNum, int slotNum)
     {
@@ -47,11 +48,12 @@ public class SaveSlot : MonoBehaviour
         if (!SaveLoadManager.Instance.HasSave(page, slot))
         {
             loadButton.interactable = false;
-            deleteButton
+            deleteButton.interactable = false;
         }
         else
         {
             loadButton.interactable = true;
+            deleteButton.interactable = false;
         }
 
         optionsContainer.SetActive(show);

@@ -10,14 +10,12 @@ public class GameManager : MonoBehaviour
     public int loadPage;
     public int loadSlot;
     public Story currentStory;
-
     public bool isInGame = false;
-
     private string lastOpenScene;
 
     private void Awake()
     {
-        //ensures only one instance of GameManager exists
+        //makes sure only one instance of GameManager exists
         if (Instance == null)
         {
             Instance = this;
@@ -46,11 +44,11 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame() //quits the game, if in the editor it stops play mode instead
     {
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-    #else
+#else
         Application.Quit();
-    #endif
+#endif
     }
 
 }
