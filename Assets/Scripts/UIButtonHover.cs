@@ -1,0 +1,57 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+public class UIButtonHover : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{
+    public Image BGImage;
+    public Color normalColor = Color.black;
+    public Color HoverlColor = Color.white;
+
+    public TMP_Text btnText;
+    public Color normalTextColor = Color.white;
+    public Color HoverTextColor = Color.black;
+    public Color PressedTextColor = Color.red;
+
+
+
+    private bool isHovered = false;
+
+    void Start()
+    {
+
+        if (BGImage != null)
+            BGImage.color = normalColor;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovered = true;
+
+        if (BGImage != null) BGImage.color = HoverlColor;
+        btnText.color = HoverTextColor;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovered = false;
+
+        if (BGImage != null) BGImage.color = normalColor;
+        btnText.color = normalTextColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+       
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        btnText.color = PressedTextColor;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        btnText.color = normalTextColor;
+    }
+}
