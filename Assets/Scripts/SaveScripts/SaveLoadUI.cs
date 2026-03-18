@@ -57,11 +57,10 @@ public class SaveLoadUI : MonoBehaviour
     }
     public void OpenSlot(SaveSlot slot)
     {
-        //penSlotImage.sprite = GetSaveImage(slot.GetComponent<SaveSlot>().GetPage(), slot.GetComponent<SaveSlot>().GetSlot());
+        openSlotImage.sprite = slot.GetSaveImage();
         openSlotNumber.text = slot.GetSaveNumber();
         openSlotDate.text = slot.GetSaveDate();
         openSlotText.text = slot.GetSaveText();
-
     }
 
     public void CloseAll()

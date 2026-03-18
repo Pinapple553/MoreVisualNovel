@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class SaveSlot : MonoBehaviour
 {
@@ -20,17 +21,24 @@ public class SaveSlot : MonoBehaviour
     {
         page = pageNum;
         slot = slotNum;
-        int number = (pageNum-1)*16+slotNum;
-        slotNumber.text = "NO."+number.ToString();
+        slotNumber.text = GetSaveNumber();
 
         if (data != null)
         {
             slotdate.text = data.dateTime;
-            image.sprite = Resources.Load<Sprite>($"Backgrounds/{data.background_id}");
+            string path = Application.persistentDataPath + $"/Saves/save_{page}_{slot}.png";
+            if (File.Exists(path))
+            {
+                byte[] bytes = File.ReadAllBytes(path);
+                Texture2D tex = new Texture2D(2, 2);
+                tex.LoadImage(bytes);
+                image.sprite = Sprite.Create(tex,new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+            }
         }
         else
         {
             slotdate.text = "Empty";
+            image.sprite = null;
             image.color = Color.black;
         }
     }
@@ -91,8 +99,20 @@ public class SaveSlot : MonoBehaviour
 
     public string GetSaveNumber()
     {
-        int number = (page - 1) * 16 + slot;
-        return number.ToString();
+        string text = "GONE";
+        if (page == 0)
+        {
+            text = "Auto."+slot;
+        }
+        else if( page == -1)
+        {
+            text = "Quick." + slot;
+        }
+        else 
+        {
+            text = "NO."+(page - 1) * 16 + slot;
+        }
+        return text;
     }
     public int GetPage()
     {
@@ -119,5 +139,9 @@ public class SaveSlot : MonoBehaviour
             return data.previewText;
         }
         return "No Save";
+    }
+    public Sprite GetSaveImage()
+    {
+        return image.sprite;
     }
 }

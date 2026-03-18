@@ -30,6 +30,7 @@ public class BackgroundManager : MonoBehaviour
     public void ChangeBackground(string backgroundId) 
     {
         CurrentBackgroundID = backgroundId;
+        GameManager.Instance.currentBackgroundID = backgroundId;
 
         if (lookup.TryGetValue(backgroundId, out var sprite))
         {

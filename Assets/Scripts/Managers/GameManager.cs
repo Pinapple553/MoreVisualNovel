@@ -1,4 +1,7 @@
 using Ink.Runtime;
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +15,9 @@ public class GameManager : MonoBehaviour
     public Story currentStory;
     public bool isInGame = false;
     private string lastOpenScene;
+
+    public string currentBackgroundID; 
+    private Texture2D latestScreenshot;
 
     private void Awake()
     {
@@ -50,5 +56,44 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 #endif
     }
+    public IEnumerator CoroutineScreenshot()
+    {
+        yield return new WaitForEndOfFrame();
+       
+        int width = Screen.width;
+        int height = Screen.height;
+        Texture2D screenshotTexture = new Texture2D(width, height, TextureFormat.ARGB32, false); Rect rect = new Rect(0, 0, width, height);
+        screenshotTexture.ReadPixels(rect, 0, 0); 
+        screenshotTexture.Apply();
 
+        int targetWidth = 200;
+        int targetHeight = 180;
+
+        float scale = (float)targetHeight / height;
+        int scaledWidth = Mathf.RoundToInt(width *scale);
+        Texture2D scaled = ResizeTexture(screenshotTexture, scaledWidth, targetHeight);
+        int startX = (scaledWidth - targetWidth) / 2;
+        Texture2D finalTex = new Texture2D(targetWidth, targetHeight, TextureFormat.ARGB32, false);
+        finalTex.SetPixels(scaled.GetPixels(startX, 0, targetWidth, targetHeight));
+        finalTex.Apply();
+
+        latestScreenshot = finalTex;
+    }
+    public Texture2D GetLatestScreenshot()
+    {
+        return latestScreenshot;
+    }
+    public Texture2D ResizeTexture(Texture2D source, int width, int height)
+    {
+        RenderTexture rt = RenderTexture.GetTemporary(width, height);
+        RenderTexture.active = rt;
+        Graphics.Blit(source, rt);
+        Texture2D result = new Texture2D(width, height, TextureFormat.ARGB32, false);
+        result.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        result.Apply();
+        RenderTexture.active = null;
+        RenderTexture.ReleaseTemporary(rt);
+
+        return result;
+    }
 }
