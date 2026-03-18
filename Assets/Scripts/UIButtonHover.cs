@@ -13,10 +13,6 @@ public class UIButtonHover : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public Color HoverTextColor = Color.black;
     public Color PressedTextColor = Color.red;
 
-
-
-    private bool isHovered = false;
-
     void Start()
     {
 
@@ -26,16 +22,12 @@ public class UIButtonHover : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovered = true;
-
         if (BGImage != null) BGImage.color = HoverlColor;
         btnText.color = HoverTextColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isHovered = false;
-
         if (BGImage != null) BGImage.color = normalColor;
         btnText.color = normalTextColor;
     }

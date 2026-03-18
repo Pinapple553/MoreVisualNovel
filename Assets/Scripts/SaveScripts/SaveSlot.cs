@@ -37,7 +37,7 @@ public class SaveSlot : MonoBehaviour
     public void ShowOptions(bool show)
     {
         SaveLoadUI.Instance.HideAllOptions();
-        if (GameManager.Instance.currentStory == null) 
+        if (GameManager.Instance.currentStory == null)  
         {
             saveButton.interactable = false;
         }
@@ -53,7 +53,7 @@ public class SaveSlot : MonoBehaviour
         else
         {
             loadButton.interactable = true;
-            deleteButton.interactable = false;
+            deleteButton.interactable = true;
         }
 
         optionsContainer.SetActive(show);

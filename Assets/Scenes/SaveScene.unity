@@ -1801,6 +1801,10 @@ PrefabInstance:
       propertyPath: uIManager
       value: 
       objectReference: {fileID: 1927863218}
+    - target: {fileID: 7479188436393240347, guid: 294e4a721f817884980d796e51c707a5, type: 3}
+      propertyPath: deleteButton
+      value: 
+      objectReference: {fileID: 1383587723}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1811,6 +1815,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1453230591717106536, guid: 294e4a721f817884980d796e51c707a5, type: 3}
   m_PrefabInstance: {fileID: 1383587721}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1383587723 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8946901198636339352, guid: 294e4a721f817884980d796e51c707a5, type: 3}
+  m_PrefabInstance: {fileID: 1383587721}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1524746470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,6 +2099,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f49f94fc6054714897a4a35c177253b, type: 3}
+--- !u!1 &1565761702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565761704}
+  - component: {fileID: 1565761703}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1565761703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565761702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ead2557899141438d775f3221c14b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  loadFromSave: 0
+  loadPage: 0
+  loadSlot: 0
+  isInGame: 0
+--- !u!4 &1565761704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565761702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.76954, y: 0.37739, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1755380589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,5 +3046,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 551575557}
   - {fileID: 271158658}
+  - {fileID: 1565761704}
   - {fileID: 1757843480}
   - {fileID: 516559054}
