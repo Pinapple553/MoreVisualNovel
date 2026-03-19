@@ -1,6 +1,5 @@
 using Ink.Runtime;
 using System.IO;
-using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SaveLoadManager : MonoBehaviour
@@ -66,9 +65,7 @@ public class SaveLoadManager : MonoBehaviour
     public GameData LoadGameData(int page, int slot)
     {
         string path = GetSlotPath(page, slot);
-
         if (!File.Exists(path)) {  return null; }
-
         string json = File.ReadAllText(path);
         return JsonUtility.FromJson<GameData>(json);
     }
@@ -81,7 +78,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         string jsonPath = GetSlotPath(page, slot);
         if (File.Exists(jsonPath)) File.Delete(jsonPath);
-
         string imagePath = Application.persistentDataPath + $"/Saves/save_{page}_{slot}.png";
         if (File.Exists(imagePath)) File.Delete(imagePath);
     }
@@ -95,7 +91,7 @@ public class SaveLoadManager : MonoBehaviour
     {
         int slot = GetLatestSlot(quickPage);
 
-        if (slot == -1) return;
+        if (slot == 0) return;
 
         GameManager.Instance.loadFromSave = true;
         GameManager.Instance.loadPage = quickPage;
@@ -110,10 +106,10 @@ public class SaveLoadManager : MonoBehaviour
     }
     private int GetLatestSlot(int page)
     {
-        int latestSlot = -1;
+        int latestSlot = 1;
         System.DateTime latestTime = System.DateTime.MinValue;
 
-        for (int i = 0; i < slotsPerPage; i++)
+        for (int i = 1; i <= slotsPerPage; i++)
         {
             if (!HasSave(page, i)) continue;
 
@@ -134,9 +130,9 @@ public class SaveLoadManager : MonoBehaviour
     }
     private int GetNextSlot(int page)
     {
-        int oldestSlot = 0;
+        int oldestSlot = 1;
         System.DateTime oldestTime = System.DateTime.MaxValue;
-        for (int i = 0; i < slotsPerPage; i++)
+        for (int i = 1; i <= slotsPerPage; i++)
         {
             if (!HasSave(page, i))
             {

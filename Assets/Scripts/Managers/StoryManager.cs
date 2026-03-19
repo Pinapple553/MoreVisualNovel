@@ -2,7 +2,6 @@ using Ink.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,10 +35,10 @@ public class StoryManager : MonoBehaviour
     [SerializeField] private Button buttonPrefab;
 
     [Header("Story Settings")]
-    public float baseTextSpeed = 0.05f;
-    public float currentTextSpeed = 0.05f;
-    public float autoTextSpeed = 0.05f;
-    public float autoDelay = 2f;
+    public float baseTextSpeed;
+    public float currentTextSpeed;
+    public float autoTextSpeed;
+    public float autoDelay;
 
     [Header("Skip Settings")]
     public bool skipUnseen = false;
@@ -58,31 +57,24 @@ public class StoryManager : MonoBehaviour
     private bool autoPlaying = false;
     Coroutine currentAuto;
     private bool skipping = false;
-
+    private bool paused = false;    
     private List<string> dialogueLog = new List<string>();
     [SerializeField] private int maxLogSize = 100;
 
     private InputSystem controls; //Input system
-
-    private void OnEnable()
-    {
-        controls.UI.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.UI.Disable();
-    }
+    private void OnEnable() {controls.UI.Enable();}
+    private void OnDisable() {controls.UI.Disable();}
     void Awake()
     {
         controls = new InputSystem();
-        controls.UI.Advance.performed += ctx =>
+        /*controls.UI.Advance.performed += ctx =>
         {
             GameObject clicked = EventSystem.current.currentSelectedGameObject;
             if (!(clicked != null && clicked.GetComponent<Button>() != null))   // ignores clicks on buttons so story dosn't advance twice when making a choice
             {
                 AdvanceStory();
             }
-        };
+        };*/
         controls.UI.Pause.performed += ctx =>
         {
             if (SceneManager.GetActiveScene().name == "GameScene")
@@ -90,6 +82,11 @@ public class StoryManager : MonoBehaviour
                 PauseGame();
             }
         };
+        baseTextSpeed = PlayerPrefs.GetFloat("textSpeed", 0.05f);
+        currentTextSpeed = baseTextSpeed;
+        autoTextSpeed = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
+        autoDelay = PlayerPrefs.GetFloat("autoDelay", 1);
+
         StartStory();
     }
     public Story GetCurrentStory()
@@ -122,8 +119,13 @@ public class StoryManager : MonoBehaviour
         }
         AdvanceStory();
     }
+    public void Advance()
+    {
+        AdvanceStory();
+    }
     void AdvanceStory()
     {
+        if (paused) { return; }
         if (isTyping)// If text is still typing, finish instantly
         {
             StopCoroutine(typingCoroutine);
@@ -135,6 +137,10 @@ public class StoryManager : MonoBehaviour
         { 
             RemoveChoices(); // Remove any existing choices
             string text = story.Continue().Trim();
+            //story state
+            string path = story.state.currentPathString;
+            globalSeen.Add(path);
+
             TypeDialogue(text);
             HandleTags();
             if (story.currentChoices.Count > 0)// If choices exist, show them
@@ -149,8 +155,6 @@ public class StoryManager : MonoBehaviour
             ShowChoices();
             return;
         }
-        string path = story.state.currentPathString;
-        globalSeen.Add(path);
         GameManager.Instance.currentStory = story;
     }
     void ShowDialogue(string text)
@@ -169,13 +173,6 @@ public class StoryManager : MonoBehaviour
         {
             ChangeSpeaker("");
             currentDialogue.text = text;
-        }
-        //Log
-        string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
-        dialogueLog.Add(fullLine);
-        if (dialogueLog.Count > maxLogSize)
-        {
-            dialogueLog.RemoveAt(0);
         }
     }
     void TypeDialogue(string text)
@@ -202,10 +199,21 @@ public class StoryManager : MonoBehaviour
         textComponent.text = "";
         for (int i = 0; i < fullText.Length; i++)
         {
+            while (paused)
+            {
+                yield return null;
+            }
             textComponent.text = fullText.Substring(0, i + 1);
             yield return new WaitForSeconds(currentTextSpeed);
         }
         isTyping = false;
+        //Log
+        string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
+        dialogueLog.Add(fullLine);
+        if (dialogueLog.Count > maxLogSize)
+        {
+            dialogueLog.RemoveAt(0);
+        }
     }
     void ShowChoices()
     {
@@ -231,8 +239,8 @@ public class StoryManager : MonoBehaviour
                     AdvanceStory();
                 }
             });
-            choicesCreated = true;
         }
+        choicesCreated = true;
     }
     void RemoveChoices()// Destroys the choice buttons
     {
@@ -489,7 +497,7 @@ public class StoryManager : MonoBehaviour
             if (story.canContinue)
             {
                 AdvanceStory();
-                yield return null;
+                yield return new WaitForSeconds(0.02f);
             }
             else
             {
@@ -538,21 +546,10 @@ public class StoryManager : MonoBehaviour
                 autoPlaying = false;
         }
     }
-    public void SetTextSpeed(float newTextSpeed)
-    {
-        currentTextSpeed = newTextSpeed;
-    }
-    public void SetAutoDelay(float newAutoDelay)
-    {
-        autoDelay = newAutoDelay;
-    }
-    public void SetAutoTextSpeed(float newAutoTextSpeed)
-    {
-        autoTextSpeed = newAutoTextSpeed;
-    }
     public void ToggleLog()
     {
         logPanel.SetActive(!logPanel.activeSelf);
+        paused = !paused;
 
         if (logPanel.activeSelf)
         {
@@ -570,10 +567,18 @@ public class StoryManager : MonoBehaviour
     {
         if (pauseScreen.activeSelf)//takes screenshot only when pause menu opened
         {
+            paused = false;
             pauseScreen.SetActive(!pauseScreen.activeSelf);
         }
-        else
+        else if (!pauseScreen.activeSelf)
         {
+            paused = true;
+            if (isTyping)
+            {
+                StopCoroutine(typingCoroutine);
+                currentDialogue.text = story.currentText;
+                isTyping = false;
+            }
             StartCoroutine(PauseCoroutine());
         }
     }
@@ -582,12 +587,19 @@ public class StoryManager : MonoBehaviour
         yield return GameManager.Instance.CoroutineScreenshot();
         pauseScreen.SetActive(!pauseScreen.activeSelf);
     }
+    public void Save()
+    {
+        GameManager.Instance.CoroutineScreenshot();
+        GameManager.Instance.OpenScene("SaveScene");
+    }
     public void QuickSave()
     {
+        GameManager.Instance.CoroutineScreenshot();
         SaveLoadManager.Instance.QuickSave(story);
     }
     public void QuickLoad()
     {
+        GameManager.Instance.CoroutineScreenshot();
         SaveLoadManager.Instance.QuickLoad();
     }
 }
