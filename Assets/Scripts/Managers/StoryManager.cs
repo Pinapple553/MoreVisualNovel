@@ -171,7 +171,7 @@ public class StoryManager : MonoBehaviour
             currentDialogue.text = text;
         }
         //Log
-        string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? text : currentSpeakerText.text + ": " + text);
+        string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
         dialogueLog.Add(fullLine);
         if (dialogueLog.Count > maxLogSize)
         {

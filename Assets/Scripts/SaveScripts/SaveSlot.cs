@@ -110,7 +110,7 @@ public class SaveSlot : MonoBehaviour
         }
         else 
         {
-            text = "NO."+(page - 1) * 16 + slot;
+            text = "NO."+((page - 1) * 16 + slot);
         }
         return text;
     }

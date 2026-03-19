@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0014038086, y: -0.07446289}
+  m_AnchoredPosition: {x: 0.0013427734, y: -0.07446289}
   m_SizeDelta: {x: 0.0030518, y: 0.14966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7156835
@@ -10105,6 +10105,7 @@ MonoBehaviour:
   loadPage: 0
   loadSlot: 0
   isInGame: 0
+  currentBackgroundID: 
 --- !u!4 &2140332711
 Transform:
   m_ObjectHideFlags: 0
@@ -10690,7 +10691,7 @@ PrefabInstance:
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: inkJSONAsset
       value: 
-      objectReference: {fileID: 4900000, guid: e643d0148a15aca4fa36c9ccd3ad8c8d, type: 3}
+      objectReference: {fileID: 4900000, guid: 7c5f9e259ba14074bb8e840ce7b8782d, type: 3}
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: logTextPrefab
       value: 
