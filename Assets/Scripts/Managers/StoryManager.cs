@@ -486,6 +486,13 @@ public class StoryManager : MonoBehaviour
                     skipping = false;
                     yield break;
                 }
+                //Log
+                string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
+                dialogueLog.Add(fullLine);
+                if (dialogueLog.Count > maxLogSize)
+                {
+                    dialogueLog.RemoveAt(0);
+                }
             }
             string path = story.state.currentPathString;
             bool hasSeen = story.state.VisitCountAtPathString(path) > 1;
@@ -531,19 +538,21 @@ public class StoryManager : MonoBehaviour
         while (autoPlaying)
         {
             yield return new WaitUntil(() => !isTyping);
-
             if (story.currentChoices.Count > 0)
             {
                 autoPlaying = false;
                 yield break;
             }
-
             yield return new WaitForSeconds(autoDelay);
-
             if (story.canContinue)
+            {
                 AdvanceStory();
+            }
             else
+            {
                 autoPlaying = false;
+            }
+               
         }
     }
     public void ToggleLog()
