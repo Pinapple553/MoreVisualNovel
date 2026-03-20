@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0013427734, y: -0.07446289}
+  m_AnchoredPosition: {x: 0.0014648438, y: -0.07446289}
   m_SizeDelta: {x: 0.0030518, y: 0.14966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7156835
@@ -8859,7 +8859,7 @@ GameObject:
   - component: {fileID: 1546464008}
   - component: {fileID: 1546464007}
   m_Layer: 5
-  m_Name: char1
+  m_Name: more
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8875,14 +8875,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2087056241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 500}
-  m_SizeDelta: {x: 543, y: 1042}
+  m_AnchoredPosition: {x: 0, y: 404}
+  m_SizeDelta: {x: 600, y: 850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1546464007
 MonoBehaviour:
@@ -8896,11 +8896,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6562d0a8d836d004d9c63ab28ed8a329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterVisuals
-  characterName: char1
+  characterName: more
   characterImageUI: {fileID: 1546464008}
   expressions:
-  - expressionName: neutral
-    sprite: {fileID: -8965794166220539473, guid: 67c9cd9cbadcc3446b94d365987844b5, type: 3}
+  - expressionName: normal
+    sprite: {fileID: -8965794166220539473, guid: 79c9c5893f3978e4cb2b49bc9414f288, type: 3}
+  - expressionName: grab
+    sprite: {fileID: -2204535639303124867, guid: ee7ebea585274784d835a2514887149f, type: 3}
+  - expressionName: hurt
+    sprite: {fileID: -4279235732871106137, guid: c3c863c2ba58ec7418e8ef0ba8e68550, type: 3}
+  - expressionName: bashfull
+    sprite: {fileID: -9192770170731054138, guid: 810889589c4502341a2d6a2d27863053, type: 3}
   - expressionName: happy
     sprite: {fileID: 4411785910950390555, guid: 41851aa90651d3745833c4c6cb69cf90, type: 3}
 --- !u!114 &1546464008
@@ -8910,20 +8916,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546464005}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7694105907635518661, guid: cca7325a7793cb847b23e3b0ae7bd8d0, type: 3}
+  m_Sprite: {fileID: -8965794166220539473, guid: 79c9c5893f3978e4cb2b49bc9414f288, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10825,7 +10831,7 @@ PrefabInstance:
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: inkJSONAsset
       value: 
-      objectReference: {fileID: 4900000, guid: 7c5f9e259ba14074bb8e840ce7b8782d, type: 3}
+      objectReference: {fileID: 4900000, guid: 66b931d0a7dbe124496e458bcc5ffdb0, type: 3}
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: logTextPrefab
       value: 
@@ -11211,7 +11217,7 @@ SceneRoots:
   - {fileID: 495680193}
   - {fileID: 3878399882272480935}
   - {fileID: 2140332711}
-  - {fileID: 1370032969}
   - {fileID: 373929041}
   - {fileID: 195357171}
   - {fileID: 1604920581}
+  - {fileID: 1370032969}
