@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b85e0376af02bdb4894f2b916504a40b
+guid: eafc1b3e07a993e4ba7a4893ccc0cde6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3563085532065423289
-    second: choice_0
+      213: 6058187673631036830
+    second: more_logo2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: choice_0
+      name: more_logo2_0
       rect:
         serializedVersion: 2
-        x: 508
-        y: 1608
-        width: 2872
-        height: 162
+        x: 1523
+        y: 1259
+        width: 867
+        height: 850
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 74028ec26906d8ec0800000000000000
-      internalID: -3563085532065423289
+      spriteID: e959d6d6791031450800000000000000
+      internalID: 6058187673631036830
       vertices: []
       indices: 
       edges: []
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      choice_0: -3563085532065423289
+      more_logo2_0: 6058187673631036830
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

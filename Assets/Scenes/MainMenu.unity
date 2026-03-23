@@ -323,7 +323,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -458,8 +458,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -701,11 +701,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1166402921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18, y: 296}
-  m_SizeDelta: {x: 469, y: 434}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 89, y: -263}
+  m_SizeDelta: {x: 437.86, y: 429.34}
+  m_Pivot: {x: 0.5500424, y: 0.4574694}
 --- !u!114 &831937931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5470614613321624601, guid: e7e69b84c24c66645a7bb0f86e9a116e, type: 3}
+  m_Sprite: {fileID: 6058187673631036830, guid: eafc1b3e07a993e4ba7a4893ccc0cde6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -876,11 +876,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 991956006}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 1275973074}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 0.52156866, g: 0, b: 0, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &991956005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,11 +1122,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1057561189}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 316799716}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &1057561188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,8 +1405,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -1541,8 +1541,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -1666,11 +1666,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1369836528}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 281946430}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &1369836527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,11 +1927,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1391582246}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 1750990101}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 0.52156866, g: 0, b: 0, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &1391582249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3558,8 +3558,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -1
-      minScalar: -2
+      scalar: -0.5
+      minScalar: -1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6836,11 +6836,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1575192900}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 1359990002}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &1575192899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6981,10 +6981,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1166402921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 778.09, y: -1034}
-  m_SizeDelta: {x: 343.32, y: 33.75}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -194, y: 58}
+  m_SizeDelta: {x: 343.32007, y: 33.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1718708469
 MonoBehaviour:
@@ -7008,9 +7008,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.39902994, g: 0.40283686, b: 0.46226418, a: 1}
-    m_PressedColor: {r: 0.4, g: 0.40392157, b: 0.4627451, a: 1}
-    m_SelectedColor: {r: 0.4, g: 0.40392157, b: 0.4627451, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.5686275}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7059,8 +7059,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7140,6 +7140,7 @@ GameObject:
   - component: {fileID: 1722919968}
   - component: {fileID: 1722919970}
   - component: {fileID: 1722919969}
+  - component: {fileID: 1722919971}
   m_Layer: 5
   m_Name: BenchBack
   m_TagString: Untagged
@@ -7162,7 +7163,7 @@ RectTransform:
   m_Father: {fileID: 1166402921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7179,18 +7180,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.63298476, b: 0.2688679, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5409611486675845757, guid: 246c31b4d125935478eb76597d96836f, type: 3}
+  m_Sprite: {fileID: -2071534154417711112, guid: f160eeb815b662c4da38a4fb92644d7b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -7204,6 +7205,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722919967}
   m_CullTransparentMesh: 1
+--- !u!114 &1722919971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722919967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
+  m_AspectMode: 4
+  m_AspectRatio: 1.777778
 --- !u!1 &1750990099
 GameObject:
   m_ObjectHideFlags: 0
@@ -7270,8 +7285,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -7406,8 +7421,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287532686
+  m_fontColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_enableVertexGradient: 1
   m_colorMode: 0
   m_fontColorGradient:
@@ -7557,10 +7572,10 @@ RectTransform:
   - {fileID: 2121955305}
   m_Father: {fileID: 1166402921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -803, y: -95.854}
-  m_SizeDelta: {x: 267.95, y: 830.64}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 173, y: -0.0000076294}
+  m_SizeDelta: {x: 240.27002, y: 759.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072075484
 MonoBehaviour:
@@ -7643,11 +7658,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 2121955308}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
   btnText: {fileID: 1755643197}
-  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  HoverTextColor: {r: 0, g: 0, b: 0, a: 1}
-  PressedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
+  PressedTextColor: {r: 0.3018868, g: 0.081167676, b: 0.081167676, a: 1}
 --- !u!114 &2121955307
 MonoBehaviour:
   m_ObjectHideFlags: 0
