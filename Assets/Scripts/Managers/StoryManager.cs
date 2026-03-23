@@ -95,47 +95,33 @@ public class StoryManager : MonoBehaviour
     }
     void StartStory()
     {
-        if (GameManager.Instance.currentStory != null)
-        {
-            story = GameManager.Instance.currentStory;
-        }
-        else
-        {
-            story = new Story(inkJSONAsset.text);
-        }
+        if (GameManager.Instance.currentStory != null) { story = GameManager.Instance.currentStory;}
+        else {story = new Story(inkJSONAsset.text); }
         GameManager.Instance.currentStory = story;
 
         if (GameManager.Instance.loadFromSave)
         {
             GameData data = SaveLoadManager.Instance.LoadGameData(GameManager.Instance.loadPage, GameManager.Instance.loadSlot);
-
-            if (data != null)
-            {
+            if (data != null){
                 story.state.LoadJson(data.storyJson);
                 backgroundManager.ChangeBackground(data.background_id);
             }
-
             GameManager.Instance.loadFromSave = false;
         }
         AdvanceStory();
     }
-    public void Advance()
-    {
-        AdvanceStory();
-    }
+    public void Advance() { AdvanceStory(); }
     void AdvanceStory()
     {
         if (paused) { return; }
         if (isTyping)// If text is still typing, finish instantly
-        {
-            StopCoroutine(typingCoroutine);
+        { StopCoroutine(typingCoroutine);
             ShowDialogue(story.currentText);
             isTyping = false;
             return;
         }
         if (story.canContinue) //shows next line of dialogue if possible
-        { 
-            RemoveChoices(); // Remove any existing choices
+        { RemoveChoices(); // Remove any existing choices
             string text = story.Continue().Trim();
             //story state
             string path = story.state.currentPathString;
@@ -144,54 +130,33 @@ public class StoryManager : MonoBehaviour
             TypeDialogue(text);
             HandleTags();
             if (story.currentChoices.Count > 0)// If choices exist, show them
-            {
-                ShowChoices();
-                return;
-            }
+            { ShowChoices(); return;}
             return;
         }
         if (story.currentChoices.Count > 0)// If choices exist, show them
-        {
-            ShowChoices();
-            return;
-        }
+        {ShowChoices(); return;}
         GameManager.Instance.currentStory = story;
     }
     void ShowDialogue(string text)
     {
-        if (currentDialogue == null)
-        {
-            currentDialogue = dialogueText;
-        }
-        if (text.Contains(":"))
-        {
+        if (currentDialogue == null) {currentDialogue = dialogueText; }
+        if (text.Contains(":")) { 
             String[] textParts = text.Split(new char[] { ':' }, 2);
             ChangeSpeaker(textParts[0]);
             currentDialogue.text = textParts[1];
         }
-        else
-        {
-            ChangeSpeaker("");
-            currentDialogue.text = text;
-        }
+        else {ChangeSpeaker(""); currentDialogue.text = text; }
     }
     void TypeDialogue(string text)
     {
-        if (currentDialogue == null)
-        {
-            currentDialogue = dialogueText;
-        }
+        if (currentDialogue == null) { currentDialogue = dialogueText;  }
         if (text.Contains(":"))
         {
             String[] textParts = text.Split(new char[] { ':' }, 2);
             ChangeSpeaker(textParts[0]);
             typingCoroutine = StartCoroutine(TypeText(currentDialogue, textParts[1]));
         }
-        else
-        {
-            ChangeSpeaker("");
-            typingCoroutine = StartCoroutine(TypeText(currentDialogue, text));
-        }
+        else{ ChangeSpeaker(""); typingCoroutine = StartCoroutine(TypeText(currentDialogue, text)); }
     }
     IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)
     {

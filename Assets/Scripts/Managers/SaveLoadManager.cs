@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 public class SaveLoadManager : MonoBehaviour
 {
     public static SaveLoadManager Instance;
-
-    [SerializeField] private BackgroundManager backgroundManager;
     private string saveFolder;
 
     private int slotsPerPage = 16;

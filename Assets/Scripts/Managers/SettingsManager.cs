@@ -6,7 +6,6 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private AudioEffectsManager audioEffectsManager;
 
     [SerializeField] private TMP_Dropdown resolutionDropdown;
@@ -18,11 +17,8 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Slider autoTextSpeedSlider;
     [SerializeField] private Slider autoDelaySlider;
 
-
-
     [SerializeField] private AudioMixer bgmMixer;
     [SerializeField] private AudioMixer sfxMixer;
-
 
     private Resolution[] resolutions;
     private int currentResolutionIndex;
@@ -30,15 +26,15 @@ public class SettingsManager : MonoBehaviour
     private float tempTextSpeed;
     private float tempAutoTextSpeed;
     private float tempAutoDelay;
-    [SerializeField] private TMP_Text previewText;
-    [SerializeField] private string previewString = "Example text...";
+    //[SerializeField] private TMP_Text previewText;
+    //[SerializeField] private string previewString = "Example text...";
 
     private const float defultTextSpeed = 0.05f;
     private const float defultAutoTextSpeed = 0.05f;
     private const float defultAutoDelay = 2;
     private const float defultVolume = 0;
 
-    private Coroutine previewCoroutine;
+    //private Coroutine previewCoroutine;
 
     private void Start()
     {
@@ -80,10 +76,10 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
     }
-    public void SetResolution(int resolutionIndex, bool fullScreen)
+    public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, fullScreen);
+        Screen.SetResolution(resolution.width, resolution.height, fullscreenToggle.isOn);
     }
     public void TextSpeed(float speed)
     {
@@ -111,7 +107,7 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.value = resIndex;
         bool isFullscreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
         fullscreenToggle.isOn = isFullscreen;
-        SetResolution(resIndex, isFullscreen);
+        SetResolution(resIndex);
     }
     public void RevertSettings()
     {
@@ -127,7 +123,7 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat("autoTextSpeed", autoTextSpeedSlider.value);
         PlayerPrefs.SetFloat("autoDelay", autoDelaySlider.value);
         PlayerPrefs.Save();
-        SetResolution(resolutionDropdown.value, fullscreenToggle.isOn);
+        SetResolution(resolutionDropdown.value);
     }
    public void ResetSettings()
     {
@@ -141,7 +137,7 @@ public class SettingsManager : MonoBehaviour
         autoDelaySlider.value = defultAutoDelay;
 
     }
-    private IEnumerator PreviewText(float speed)
+    /*private IEnumerator PreviewText(float speed)
     {
         while (true)
         {
@@ -153,7 +149,7 @@ public class SettingsManager : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
-    }
+    }*/
 
 }
 

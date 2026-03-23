@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 31539322}
   - component: {fileID: 31539321}
   - component: {fileID: 31539320}
+  - component: {fileID: 31539323}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -202,7 +203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1960198532}
+      - m_Target: {fileID: 31539323}
         m_TargetAssemblyTypeName: SceneUIActions, Assembly-CSharp
         m_MethodName: CloseScene
         m_Mode: 1
@@ -252,6 +253,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31539318}
   m_CullTransparentMesh: 1
+--- !u!114 &31539323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31539318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84914bf2f2d0d9b4d9831ad1b2b471d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneUIActions
 --- !u!1 &265597607
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,8 +464,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -769, y: 562}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0.7199707, y: -166.40997}
+  m_SizeDelta: {x: 1721.68, y: 1527.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473891637
 MonoBehaviour:
@@ -474,46 +487,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Thank you for everyone who has made this project possible!
-
-
-    Music
-
-
-    thank
-    you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank
-    you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank you
-
-    thank
-    you
-
-    thank you
-
-    thank you
-
-    thank you'
+  m_text: "Thank you for everyone who has \nmade this project possible!\n\nMusic\n\nthank
+    you\nthank you\nthank you\nthank you\nthank you\nthank you\nthank you\nthank
+    you\nthank you\nthank you\nthank you\nthank you\nthank you\nthank you\nthank
+    you\nthank you"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 976e9d7f9240c2e44ab1338196e72600, type: 2}
   m_sharedMaterial: {fileID: 1410493354517098461, guid: 976e9d7f9240c2e44ab1338196e72600, type: 2}
@@ -626,7 +603,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00029251294}
-  m_SizeDelta: {x: 0.00024414, y: 1231.74}
+  m_SizeDelta: {x: -16.67, y: 1223.41}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &978417519
 GameObject:
@@ -1475,8 +1452,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1222637167}
   m_HandleRect: {fileID: 1222637166}
   m_Direction: 2
-  m_Value: 0.99999917
-  m_Size: 0.6494877
+  m_Value: 0.9999994
+  m_Size: 0.65391004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1655,50 +1632,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863984619}
   m_CullTransparentMesh: 1
---- !u!1 &1960198531
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1960198533}
-  - component: {fileID: 1960198532}
-  m_Layer: 0
-  m_Name: SceneUIActions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1960198532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960198531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84914bf2f2d0d9b4d9831ad1b2b471d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneUIActions
---- !u!4 &1960198533
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960198531}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.00653, y: 2.48446, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2126042427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1673,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 983594092}
-  - {fileID: 1960198533}
   - {fileID: 1076100631}
   - {fileID: 1796734455}
   - {fileID: 1015873567}
