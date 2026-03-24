@@ -46,11 +46,11 @@ public class CharacterVisuals : MonoBehaviour
         SetExpression("neutral");
         characterImageUI.enabled = false;
     }
-    public void Show(string expressionId = null)
+    public void Show(string expressionId = "neutral")
     {
-        if (!string.IsNullOrEmpty(expressionId))
-            SetExpression(expressionId);
-
+        if (!string.IsNullOrEmpty(expressionId)) {
+			SetExpression(expressionId);
+		}
         characterImageUI.enabled = true;
     }
     public void SetPosition(float position)

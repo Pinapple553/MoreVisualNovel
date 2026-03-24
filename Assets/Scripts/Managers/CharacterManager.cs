@@ -29,7 +29,7 @@ public class CharacterManager : MonoBehaviour
             return false;
     }
 
-    public void Show(string characterName, string expression = "neutral")
+    public void Show(string characterName, string expression = "normal")
     {
         if (TryGetCharacter(characterName, out var character))
             character.Show(expression);

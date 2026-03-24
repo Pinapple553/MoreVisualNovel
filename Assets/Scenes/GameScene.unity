@@ -9055,6 +9055,8 @@ MonoBehaviour:
   expressions:
   - expressionName: normal
     sprite: {fileID: -8965794166220539473, guid: 79c9c5893f3978e4cb2b49bc9414f288, type: 3}
+  - expressionName: neutral
+    sprite: {fileID: -8965794166220539473, guid: 79c9c5893f3978e4cb2b49bc9414f288, type: 3}
   - expressionName: grab
     sprite: {fileID: -2204535639303124867, guid: ee7ebea585274784d835a2514887149f, type: 3}
   - expressionName: hurt

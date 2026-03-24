@@ -1151,6 +1151,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""8d84d84c-551a-4784-80a6-2aa9e2936cb8"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""039a4134-5d0a-432d-9e82-19bd922a300f"",
                     ""path"": ""<Gamepad>/select"",
                     ""interactions"": """",

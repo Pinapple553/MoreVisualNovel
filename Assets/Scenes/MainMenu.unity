@@ -876,7 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 991956006}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1275973074}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1057561189}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 316799716}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1369836528}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 281946430}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
@@ -1927,7 +1927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1391582246}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1750990101}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
@@ -6836,7 +6836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 1575192900}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1359990002}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
@@ -7658,7 +7658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   BGImage: {fileID: 2121955308}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
-  HoverlColor: {r: 1, g: 1, b: 1, a: 0}
+  HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1755643197}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.16037738, g: 0.13389999, b: 0.13389999, a: 1}
