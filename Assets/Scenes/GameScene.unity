@@ -6701,6 +6701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 572174768}
   - component: {fileID: 572174769}
+  - component: {fileID: 572174770}
   m_Layer: 5
   m_Name: Buttons
   m_TagString: Untagged
@@ -6760,6 +6761,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &572174770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572174767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628cacfb5427f0c4c83106241e4b5d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  storyManager: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7533,6 +7547,7 @@ GameObject:
   - component: {fileID: 972013486}
   - component: {fileID: 972013485}
   - component: {fileID: 972013484}
+  - component: {fileID: 972013487}
   m_Layer: 5
   m_Name: auto
   m_TagString: Untagged
@@ -7654,6 +7669,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972013482}
   m_CullTransparentMesh: 1
+--- !u!114 &972013487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972013482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d27ca9618120c47ba78a7c1787b0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::textButton
+  buttonText: {fileID: 2030851064}
+  normalTextColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
+  activeTextColor: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
+  disabledTextColor: {r: 0.49019608, g: 0, b: 0, a: 1}
 --- !u!1 &1039194717
 GameObject:
   m_ObjectHideFlags: 0
@@ -8541,6 +8572,7 @@ GameObject:
   - component: {fileID: 1443401463}
   - component: {fileID: 1443401462}
   - component: {fileID: 1443401461}
+  - component: {fileID: 1443401464}
   m_Layer: 5
   m_Name: options
   m_TagString: Untagged
@@ -8612,10 +8644,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1039194719}
-        m_TargetAssemblyTypeName: SceneUIActions, Assembly-CSharp
-        m_MethodName: OpenScene
-        m_Mode: 5
+      - m_Target: {fileID: 1256044232}
+        m_TargetAssemblyTypeName: StoryManager, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8662,6 +8694,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443401459}
   m_CullTransparentMesh: 1
+--- !u!114 &1443401464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443401459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d27ca9618120c47ba78a7c1787b0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  buttonText: {fileID: 0}
+  normalTextColor: {r: 0, g: 0, b: 0, a: 0}
+  activeTextColor: {r: 0, g: 0, b: 0, a: 0}
+  disabledTextColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1449706916
 GameObject:
   m_ObjectHideFlags: 0
@@ -9907,7 +9955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: options
+  m_text: pause
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 976e9d7f9240c2e44ab1338196e72600, type: 2}
   m_sharedMaterial: {fileID: 1410493354517098461, guid: 976e9d7f9240c2e44ab1338196e72600, type: 2}
@@ -10307,6 +10355,7 @@ GameObject:
   - component: {fileID: 2117490952}
   - component: {fileID: 2117490951}
   - component: {fileID: 2117490950}
+  - component: {fileID: 2117490953}
   m_Layer: 5
   m_Name: skip
   m_TagString: Untagged
@@ -10428,6 +10477,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117490948}
   m_CullTransparentMesh: 1
+--- !u!114 &2117490953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117490948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d27ca9618120c47ba78a7c1787b0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::textButton
+  buttonText: {fileID: 343040419}
+  normalTextColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 1}
+  activeTextColor: {r: 0.5345911, g: 0.5345911, b: 0.5345911, a: 1}
+  disabledTextColor: {r: 0.49019608, g: 0, b: 0, a: 0}
 --- !u!1 &2140332709
 GameObject:
   m_ObjectHideFlags: 0
@@ -11033,9 +11098,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7156833}
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
+      propertyPath: autoButton
+      value: 
+      objectReference: {fileID: 972013487}
+    - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: logContent
       value: 
       objectReference: {fileID: 500810230}
+    - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
+      propertyPath: skipButton
+      value: 
+      objectReference: {fileID: 2117490953}
+    - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
+      propertyPath: pauseButton
+      value: 
+      objectReference: {fileID: 1443401464}
     - target: {fileID: 1833777931990752125, guid: 0d4151988ba04e04d914899d6d2680fe, type: 3}
       propertyPath: pauseScreen
       value: 

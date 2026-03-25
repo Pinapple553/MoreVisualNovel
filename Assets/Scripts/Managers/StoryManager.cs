@@ -26,10 +26,19 @@ public class StoryManager : MonoBehaviour
     [SerializeField] private Image textBox;
     [SerializeField] private GameObject choicesContainer;
     [SerializeField] private GameObject pauseScreen;
-    //log
-    [SerializeField] private GameObject logPanel;
-    [SerializeField] private Transform logContent;
-    [SerializeField] private TextMeshProUGUI logTextPrefab;
+	//log
+	[SerializeField] private GameObject logPanel;
+	[SerializeField] private Transform logContent;
+	[SerializeField] private TextMeshProUGUI logTextPrefab;
+
+	[Header("Text Buttons")]
+	[SerializeField] private textButton pauseButton;
+	[SerializeField] private textButton logButton;
+	[SerializeField] private textButton autoButton;
+	[SerializeField] private textButton skipButton;
+	[SerializeField] private textButton saveButton;
+	[SerializeField] private textButton quickSaveButton;
+	[SerializeField] private textButton quickLoadButton;
 
     [Header("UI Prefabs")]
     [SerializeField] private Button buttonPrefab;
@@ -46,14 +55,12 @@ public class StoryManager : MonoBehaviour
     public bool skipCutscenes = false;
     private HashSet<string> globalSeen = new HashSet<string>();
 
-
     //dialogue handling
     private TextMeshProUGUI currentDialogue;
     private TextMeshProUGUI currentSpeakerText;
     private Coroutine typingCoroutine;
     private bool isTyping;
     private bool choicesCreated = false;
-    private bool fastForwarding = false;
     private bool autoPlaying = false;
     Coroutine currentAuto;
     private bool skipping = false;
@@ -66,43 +73,41 @@ public class StoryManager : MonoBehaviour
     private void OnDisable() {controls.UI.Disable();}
     void Awake()
     {
-        controls = new InputSystem();
-        /*controls.UI.Advance.performed += ctx =>
-        {
-            GameObject clicked = EventSystem.current.currentSelectedGameObject;
-            if (!(clicked != null && clicked.GetComponent<Button>() != null))   // ignores clicks on buttons so story dosn't advance twice when making a choice
-            {
-                AdvanceStory();
-            }
-        };*/
-        controls.UI.Pause.performed += ctx =>
+		controls = new InputSystem();
+		controls.UI.Pause.performed += ctx =>
         {
             if (SceneManager.GetActiveScene().name == "GameScene")
             {
                 PauseGame();
             }
         };
-        baseTextSpeed = PlayerPrefs.GetFloat("textSpeed", 0.05f);
-        currentTextSpeed = baseTextSpeed;
-        autoTextSpeed = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
-        autoDelay = PlayerPrefs.GetFloat("autoDelay", 1);
-
-        StartStory();
     }
-    public Story GetCurrentStory()
+	private void Start()
+	{
+		baseTextSpeed = PlayerPrefs.GetFloat("textSpeed", 0.05f);
+		currentTextSpeed = baseTextSpeed;
+		autoTextSpeed = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
+		autoDelay = PlayerPrefs.GetFloat("autoDelay", 2);
+
+		StartStory();
+	}
+	public Story GetCurrentStory()
     {
         return story;
     }
     void StartStory()
     {
-        if (GameManager.Instance.currentStory != null) { story = GameManager.Instance.currentStory;}
-        else {story = new Story(inkJSONAsset.text); }
+        if (GameManager.Instance.currentStory != null) 
+        {story = GameManager.Instance.currentStory;}
+        else 
+        {story = new Story(inkJSONAsset.text); }
         GameManager.Instance.currentStory = story;
 
         if (GameManager.Instance.loadFromSave)
         {
             GameData data = SaveLoadManager.Instance.LoadGameData(GameManager.Instance.loadPage, GameManager.Instance.loadSlot);
             if (data != null){
+                RemoveChoices();
                 story.state.LoadJson(data.storyJson);
                 backgroundManager.ChangeBackground(data.background_id);
             }
@@ -195,13 +200,13 @@ public class StoryManager : MonoBehaviour
             {
                 story.ChooseChoiceIndex(localChoice.index);
                 if (autoPlaying)
-                {
+                { 
+					StopAutoPlay();
                     ToggleAuto();
-                    ToggleAuto();
-                }
+				}
                 else
                 {
-                    AdvanceStory();
+					AdvanceStory();
                 }
             });
         }
@@ -223,7 +228,23 @@ public class StoryManager : MonoBehaviour
         }
         currentSpeakerText.text = spreakerName;
     }
-    void HandleTags()
+	public void UpdateTextButtons()
+	{
+        if (skipping) {
+            skipButton.ButtonActive(true);
+        }
+        else {
+			skipButton.ButtonActive(false);
+		}
+        if(autoPlaying){
+            autoButton.ButtonActive(true);
+        }
+		else
+		{
+			autoButton.ButtonActive(false);
+		}
+	}
+	void HandleTags()
     {
         foreach (string tag in story.currentTags)
         {
@@ -373,7 +394,7 @@ public class StoryManager : MonoBehaviour
                     audioEffectsManager.PlayMusic(splitTag[1], loop);
                     break;
                 case "txtspeed":
-                    if (fastForwarding)
+                    if (skipping)
                     {
                         break;
                     }
@@ -424,8 +445,9 @@ public class StoryManager : MonoBehaviour
     public void ToggleSkip()
     {
         skipping = !skipping;
+		skipButton.ButtonActive(skipping);
 
-        if (skipping)
+		if (skipping)
         {
             StartCoroutine(SkipRoutine());
         }
@@ -434,7 +456,7 @@ public class StoryManager : MonoBehaviour
     {
         while (skipping)
         {
-            if (isTyping)
+			if (isTyping)
             {
                 StopCoroutine(typingCoroutine);
                 currentDialogue.text = story.currentText;
@@ -477,10 +499,12 @@ public class StoryManager : MonoBehaviour
                 yield break;
             }
         }
-    }
+		skipButton.ButtonActive(false);
+	}
     public void ToggleAuto()
     {
         autoPlaying = !autoPlaying;
+        autoButton.ButtonActive(autoPlaying);
 
         if (autoPlaying) currentAuto = StartCoroutine(AutoRoutine());
 
@@ -489,7 +513,8 @@ public class StoryManager : MonoBehaviour
     public void StopAutoPlay()
     {
         autoPlaying = false;
-        currentTextSpeed = baseTextSpeed;
+		autoButton.ButtonActive(autoPlaying);
+		currentTextSpeed = baseTextSpeed;
 
         if (currentAuto != null)
         {
