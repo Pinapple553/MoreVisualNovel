@@ -1,5 +1,6 @@
 using Ink.Runtime;
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,7 +46,11 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene(lastOpenScene);
     }
-
+    public void NewStory(){
+		lastOpenScene = SceneManager.GetActiveScene().name;
+		SceneManager.LoadScene("GameScene");
+		currentStory =
+	}
     public void QuitGame() //quits the game, if in the editor it stops play mode instead
     {
 #if UNITY_EDITOR
