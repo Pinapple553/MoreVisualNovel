@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public void NewStory(){
 		lastOpenScene = SceneManager.GetActiveScene().name;
 		SceneManager.LoadScene("GameScene");
-		currentStory =
+		
 	}
     public void QuitGame() //quits the game, if in the editor it stops play mode instead
     {

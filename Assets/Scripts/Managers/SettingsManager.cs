@@ -32,7 +32,7 @@ public class SettingsManager : MonoBehaviour
     private const float defultTextSpeed = 0.05f;
     private const float defultAutoTextSpeed = 0.05f;
     private const float defultAutoDelay = 2;
-    private const float defultVolume = 0;
+    private const float defultVolume = 0.5f;
 
     //private Coroutine previewCoroutine;
 
@@ -43,11 +43,19 @@ public class SettingsManager : MonoBehaviour
     }
     public void SetBGMVolume(float volume)
     {
-        bgmMixer.SetFloat("bgmVolume", volume);
+        bgmMixer.SetFloat("bgmVolume", Mathf.Log10(volume)*20);
+        if(volume ==0)
+        {
+            bgmMixer.SetFloat("bgmVolume", -80);
+        }
     }
     public void SetSFXVolume(float volume)
     {
-        sfxMixer.SetFloat("sfxVolume", volume);
+        sfxMixer.SetFloat("sfxVolume", Mathf.Log10(volume) * 20);
+        if (volume == 0)
+        {
+            bgmMixer.SetFloat("bgmVolume", -80);
+        }
     }
     public void MuteAll()
     {
@@ -97,8 +105,8 @@ public class SettingsManager : MonoBehaviour
     }
     private void LoadSettings()
     {
-        BGMslider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
-        SFXslider.value = PlayerPrefs.GetFloat("SFXVolume", 0);
+        BGMslider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+        SFXslider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
         textSpeedSlider.value = PlayerPrefs.GetFloat("textSpeed", 0.05f);
         autoTextSpeedSlider.value = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
         autoDelaySlider.value = PlayerPrefs.GetFloat("autoDelay", 2);
