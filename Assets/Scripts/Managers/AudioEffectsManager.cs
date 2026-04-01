@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static BackgroundManager;
-
+using UnityEngine.Audio;
 public class AudioEffectsManager : MonoBehaviour
 {
+	public static AudioEffectsManager Instance;
+
     [SerializeField]
     private AudioSource sfxSource;
     [SerializeField]
     private AudioSource backgroundMusicSource;
-    [System.Serializable]
+    [SerializeField] private AudioMixer bgmMixer;
+    [SerializeField] private AudioMixer sfxMixer;
+	[System.Serializable]
     public class MusicTrack
     {
         public string musicName;
@@ -32,8 +30,17 @@ public class AudioEffectsManager : MonoBehaviour
     private Dictionary<string, AudioClip> lookupMusic; //lookup dictionary for quick access to expressions
     private Dictionary<string, AudioClip> lookupSFX; //lookup dictionary for quick access to expressions
 
-    void Awake()
-    {
+
+	private void Awake()
+	{
+		if (Instance != null && Instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
+
         backgroundMusicSource.loop = true;
 
         lookupMusic = new Dictionary<string, AudioClip>();
@@ -48,7 +55,21 @@ public class AudioEffectsManager : MonoBehaviour
             lookupSFX[sfx.sfxName] = sfx.audio;
         }
     }
-
+    void Start(){
+        SetVolume();
+    }
+    void SetVolume(){
+		bgmMixer.SetFloat("bgmVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume", 0.5f)) * 20);
+		if (PlayerPrefs.GetFloat("MusicVolume", 0.5f) == 0)
+		{
+			bgmMixer.SetFloat("bgmVolume", -80);
+		}
+		sfxMixer.SetFloat("sfxVolume", Mathf.Log10(PlayerPrefs.GetFloat("SFXVolume", 0.5f)) * 20);
+		if (PlayerPrefs.GetFloat("SFXVolume", 0.5f) == 0)
+		{
+			sfxMixer.SetFloat("sfxVolume", -80);
+		}
+	}
     public void PlayMusic(string MusicName, bool loop)
     {
         backgroundMusicSource.Stop();

@@ -1,14 +1,16 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
-    [SerializeField] private AudioEffectsManager audioEffectsManager;
+   AudioEffectsManager audioEffectsManager = AudioEffectsManager.Instance;
 
-    [SerializeField] private TMP_Dropdown resolutionDropdown;
+	[SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
 
     [SerializeField] private Slider BGMslider;
@@ -19,8 +21,12 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private AudioMixer bgmMixer;
     [SerializeField] private AudioMixer sfxMixer;
+    [SerializeField] private Toggle muteToggle;
 
-    private Resolution[] resolutions;
+	[SerializeField] private Toggle skipAfterChoice;
+	[SerializeField] private Toggle skipUnseen;
+
+	private Resolution[] resolutions;
     private int currentResolutionIndex;
     //for future text write example
     private float tempTextSpeed;
@@ -54,18 +60,29 @@ public class SettingsManager : MonoBehaviour
         sfxMixer.SetFloat("sfxVolume", Mathf.Log10(volume) * 20);
         if (volume == 0)
         {
-            bgmMixer.SetFloat("bgmVolume", -80);
+            sfxMixer.SetFloat("sfxVolume", -80);
         }
     }
-    public void MuteAll()
+    public void MuteAll(bool active)
     {
+        if (active)
+        {
+            SetBGMVolume(0);
+            SetSFXVolume(0);
 
+		}
+        else
+        {
+            SetBGMVolume(BGMslider.value);
+            SetSFXVolume(SFXslider.value);
+        }
     }
-    public void ToggleFullscrean(bool isFullscreen)
+
+    public void ToggleFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
     }
-    public void ShowResolutions()
+	public void ShowResolutions()
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -110,13 +127,19 @@ public class SettingsManager : MonoBehaviour
         textSpeedSlider.value = PlayerPrefs.GetFloat("textSpeed", 0.05f);
         autoTextSpeedSlider.value = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
         autoDelaySlider.value = PlayerPrefs.GetFloat("autoDelay", 2);
+		fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+		muteToggle.isOn = PlayerPrefs.GetInt("muted", 0)==1;
+        MuteAll(muteToggle.isOn);
+		skipAfterChoice.isOn = PlayerPrefs.GetInt("skipAfterChoice", 0)==1;
+		skipUnseen.isOn = PlayerPrefs.GetInt("skipUnseen", 0)==1;
 
-        int resIndex = PlayerPrefs.GetInt("ResolutionIndex", currentResolutionIndex);
+		int resIndex = PlayerPrefs.GetInt("ResolutionIndex", currentResolutionIndex);
         resolutionDropdown.value = resIndex;
-        bool isFullscreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
-        fullscreenToggle.isOn = isFullscreen;
-        SetResolution(resIndex);
+
+		SetResolution(resIndex);
     }
+
+
     public void RevertSettings()
     {
         LoadSettings();
@@ -127,10 +150,14 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("Fullscreen", fullscreenToggle.isOn ? 1 : 0);
         PlayerPrefs.SetFloat("MusicVolume", BGMslider.value);
         PlayerPrefs.SetFloat("SFXVolume", SFXslider.value);
-        PlayerPrefs.SetFloat("textSpeed", textSpeedSlider.value);
+		PlayerPrefs.SetFloat("textSpeed", textSpeedSlider.value);
         PlayerPrefs.SetFloat("autoTextSpeed", autoTextSpeedSlider.value);
         PlayerPrefs.SetFloat("autoDelay", autoDelaySlider.value);
-        PlayerPrefs.Save();
+		PlayerPrefs.SetInt("muted", muteToggle.isOn ? 1:0);
+		PlayerPrefs.SetInt("skipAfterChoice", skipAfterChoice.isOn ? 1 : 0);
+		PlayerPrefs.SetInt("skipUnseen", skipUnseen.isOn ? 1 : 0);
+
+		PlayerPrefs.Save();
         SetResolution(resolutionDropdown.value);
     }
    public void ResetSettings()
@@ -144,7 +171,10 @@ public class SettingsManager : MonoBehaviour
         autoTextSpeedSlider.value = defultAutoTextSpeed;
         autoDelaySlider.value = defultAutoDelay;
 
-    }
+        muteToggle.isOn = false;
+        skipUnseen.isOn = false;
+        skipAfterChoice.isOn = false;
+	}
     /*private IEnumerator PreviewText(float speed)
     {
         while (true)

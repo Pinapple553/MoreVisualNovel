@@ -6,8 +6,11 @@ public class SceneUIActions : MonoBehaviour
     {
         GameManager.Instance.OpenScene(sceneName);
     }
-
-    public void CloseScene()
+	public void NewStory()
+	{
+		GameManager.Instance.NewStory();
+	}
+	public void CloseScene()
     {
         GameManager.Instance.CloseScene();
     }

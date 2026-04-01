@@ -123,7 +123,14 @@ public class StoryManager : MonoBehaviour
         { StopCoroutine(typingCoroutine);
             ShowDialogue(story.currentText);
             isTyping = false;
-            return;
+			//Log
+			string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
+			dialogueLog.Add(fullLine);
+			if (dialogueLog.Count > maxLogSize)
+			{
+				dialogueLog.RemoveAt(0);
+			}
+			return;
         }
         if (story.canContinue) //shows next line of dialogue if possible
         { RemoveChoices(); // Remove any existing choices
@@ -162,7 +169,7 @@ public class StoryManager : MonoBehaviour
             typingCoroutine = StartCoroutine(TypeText(currentDialogue, textParts[1]));
         }
         else{ ChangeSpeaker(""); typingCoroutine = StartCoroutine(TypeText(currentDialogue, text)); }
-    }
+	}
     IEnumerator TypeText(TextMeshProUGUI textComponent, string fullText)
     {
         isTyping = true;
@@ -177,14 +184,14 @@ public class StoryManager : MonoBehaviour
             yield return new WaitForSeconds(currentTextSpeed);
         }
         isTyping = false;
-        //Log
-        string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
-        dialogueLog.Add(fullLine);
-        if (dialogueLog.Count > maxLogSize)
-        {
-            dialogueLog.RemoveAt(0);
-        }
-    }
+		//Log
+		string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
+		dialogueLog.Add(fullLine);
+		if (dialogueLog.Count > maxLogSize)
+		{
+			dialogueLog.RemoveAt(0);
+		}
+	}
     void ShowChoices()
     {
         if (choicesCreated) return; // Prevents creating choices multiple times

@@ -1,6 +1,5 @@
 using Ink.Runtime;
-using System.Collections;
-using UnityEditor.SearchService;
+using System.Collections; 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -48,6 +47,7 @@ public class GameManager : MonoBehaviour
     }
     public void NewStory(){
 		lastOpenScene = SceneManager.GetActiveScene().name;
+        currentStory = null;
 		SceneManager.LoadScene("GameScene");
 		
 	}
