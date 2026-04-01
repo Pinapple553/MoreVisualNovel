@@ -1,25 +1,25 @@
 ->StartScene
 ===== StartScene ===
 #char more normal
-Hello.
+morė: Hello.
 #char more bashfull
-Well... As you can see I havent quite finished the game quite yet. 
+morė: Well... As you can see I haven't finished the game yet. 
 #char more grab
-<>All of the functions of the game are done I just haven't finished the art or story quite yet.
+morė: All of the functions of the game are done I just haven't finished the art or story quite yet.
 #char more bashfull
-This is just a quick demo to show that the dialogue and story actually work. 
+morė: This is just a quick demo to show that the dialogue and story actually work. 
 #char more hurt
-<>ARGH! I'll make sure to finish everything soon!
+morė: ARGH! I'll make sure to finish everything soon!
 #char more normal
-But thats all I had to say...
+morė: But thats all I had to say...
 #char more bashfull
-Oh right! There are also choices in this. Thats pretty cool right?
+morė: Oh right! There are also choices in this. Thats pretty cool right?
 *Sure.
     #char more normal
-    Thank you. I'll keep working hard on finishing the game!
+    morė: Thank you. I'll keep working hard on finishing the game!
 *Not really.
     #char more grab
-    Oh well, I guess having opinions is okay, but you're mean.
--Well bye then.
+    morė: Oh well, I guess having opinions is okay, but you're mean.
+-morė: Well bye then.
 ->END
 

@@ -95,7 +95,7 @@ public class SaveLoadManager : MonoBehaviour
         GameManager.Instance.loadPage = quickPage;
         GameManager.Instance.loadSlot = slot;
 
-        SceneManager.LoadScene("GameScene");
+        GameManager.Instance.OpenScene("GameScene");
     }
     public void AutoSave(Story story)
     {

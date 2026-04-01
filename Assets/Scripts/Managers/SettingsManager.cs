@@ -39,12 +39,14 @@ public class SettingsManager : MonoBehaviour
     private const float defultAutoTextSpeed = 0.05f;
     private const float defultAutoDelay = 2;
     private const float defultVolume = 0.5f;
+    private int defaultResolutionIndex;
 
     //private Coroutine previewCoroutine;
 
     private void Start()
     {
         ShowResolutions();
+        defaultResolutionIndex = currentResolutionIndex;
         LoadSettings();
     }
     public void SetBGMVolume(float volume)
@@ -88,17 +90,55 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.ClearOptions();
 
         List<string> resolutionTexts = new List<string>();
+        List<Resolution> uniqueResolutions = new List<Resolution>();
+        HashSet<string> seen = new HashSet<string>();
+
         for (int i = 0; i < resolutions.Length; i++)
         {
-            resolutionTexts.Add(resolutions[i].width +" x " + resolutions[i].height);
-            if (resolutions[i].height == Screen.currentResolution.height && resolutions[i].width == Screen.currentResolution.width)
+            string key = resolutions[i].width + "x" + resolutions[i].height;
+            if (seen.Contains(key)) continue;
+            seen.Add(key);
+
+            uniqueResolutions.Add(resolutions[i]);
+            resolutionTexts.Add(resolutions[i].width + " x " + resolutions[i].height);
+
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
-                currentResolutionIndex = i;
+                currentResolutionIndex = uniqueResolutions.Count - 1;
             }
         }
+        resolutions = uniqueResolutions.ToArray();
+
         resolutionDropdown.AddOptions(resolutionTexts);
         resolutionDropdown.value = currentResolutionIndex;
+
+        Resolution current = Screen.currentResolution;
+        bool foundCurrent = false;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (resolutions[i].width == current.width &&
+                resolutions[i].height == current.height)
+            {
+                foundCurrent = true;
+                break;
+            }
+        }
+
+        if (!foundCurrent)
+        {
+            List<Resolution> tempList = new List<Resolution>(resolutions);
+            tempList.Add(current);
+
+            resolutions = tempList.ToArray();
+            resolutionTexts.Add(current.width + " x " + current.height);
+
+            currentResolutionIndex = resolutions.Length - 1;
+        }
+
         resolutionDropdown.RefreshShownValue();
+
+
 
     }
     public void SetResolution(int resolutionIndex)
@@ -162,7 +202,8 @@ public class SettingsManager : MonoBehaviour
     }
    public void ResetSettings()
     {
-        resolutionDropdown.value = currentResolutionIndex;
+        ShowResolutions();
+        resolutionDropdown.value = defaultResolutionIndex;
         fullscreenToggle.isOn = true;
 
         BGMslider.value = defultVolume;

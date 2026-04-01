@@ -40,6 +40,9 @@ public class StoryManager : MonoBehaviour
 	[SerializeField] private textButton quickSaveButton;
 	[SerializeField] private textButton quickLoadButton;
 
+    Coroutine skipCoroutine;
+    Coroutine autoCoroutine;
+
     [Header("UI Prefabs")]
     [SerializeField] private Button buttonPrefab;
 
@@ -51,7 +54,7 @@ public class StoryManager : MonoBehaviour
 
     [Header("Skip Settings")]
     public bool skipUnseen = false;
-    public bool skipChoices = false;
+    public bool skipAfterChoices = false;
     public bool skipCutscenes = false;
     private HashSet<string> globalSeen = new HashSet<string>();
 
@@ -62,7 +65,6 @@ public class StoryManager : MonoBehaviour
     private bool isTyping;
     private bool choicesCreated = false;
     private bool autoPlaying = false;
-    Coroutine currentAuto;
     private bool skipping = false;
     private bool paused = false;    
     private List<string> dialogueLog = new List<string>();
@@ -89,7 +91,10 @@ public class StoryManager : MonoBehaviour
 		autoTextSpeed = PlayerPrefs.GetFloat("autoTextSpeed", 0.05f);
 		autoDelay = PlayerPrefs.GetFloat("autoDelay", 2);
 
-		StartStory();
+        skipUnseen = PlayerPrefs.GetInt("skipUnseen", 0) == 1;
+        skipAfterChoices = PlayerPrefs.GetInt("skipAfterChoice", 0) == 1;
+
+        StartStory();
 	}
 	public Story GetCurrentStory()
     {
@@ -142,12 +147,16 @@ public class StoryManager : MonoBehaviour
             TypeDialogue(text);
             HandleTags();
             if (story.currentChoices.Count > 0)// If choices exist, show them
-            { ShowChoices(); return;}
+            { StartCoroutine(ShowChoices()); return;}
             return;
         }
         if (story.currentChoices.Count > 0)// If choices exist, show them
         {ShowChoices(); return;}
         GameManager.Instance.currentStory = story;
+        if (!(story.currentChoices.Count > 0) && !story.canContinue)
+        {
+            GameManager.Instance.OpenScene("GameEndScene");
+        }
     }
     void ShowDialogue(string text)
     {
@@ -192,9 +201,10 @@ public class StoryManager : MonoBehaviour
 			dialogueLog.RemoveAt(0);
 		}
 	}
-    void ShowChoices()
+    IEnumerator ShowChoices()
     {
-        if (choicesCreated) return; // Prevents creating choices multiple times
+        if (choicesCreated) yield break; // Prevents creating choices multiple times
+        while (isTyping) yield return null;
         foreach (Choice choice in story.currentChoices)
         {
             Button button = Instantiate(buttonPrefab, choicesContainer.transform, false);
@@ -206,15 +216,15 @@ public class StoryManager : MonoBehaviour
             button.onClick.AddListener(() =>
             {
                 story.ChooseChoiceIndex(localChoice.index);
-                if (autoPlaying)
-                { 
-					StopAutoPlay();
-                    ToggleAuto();
-				}
-                else
-                {
-					AdvanceStory();
-                }
+                RemoveChoices();
+
+                AdvanceStory();
+
+                if (autoPlaying && autoCoroutine == null)
+                    autoCoroutine = StartCoroutine(AutoRoutine());
+
+                if (skipping && skipCoroutine == null)
+                    skipCoroutine = StartCoroutine(SkipRoutine());
             });
         }
         choicesCreated = true;
@@ -455,31 +465,31 @@ public class StoryManager : MonoBehaviour
 		skipButton.ButtonActive(skipping);
 
 		if (skipping)
-        {
-            StartCoroutine(SkipRoutine());
+        {   
+            if(skipCoroutine != null)
+            {
+                StopCoroutine(skipCoroutine);
+            }
+
+            skipCoroutine = StartCoroutine(SkipRoutine());
         }
     }
     private IEnumerator SkipRoutine()
     {
         while (skipping)
         {
-			if (isTyping)
+            if (!(story.currentChoices.Count > 0) && !story.canContinue)
+            {
+                skipping = false;
+                skipping = false;
+                skipButton.ButtonActive(false);
+                yield break;
+            }
+                if (isTyping)
             {
                 StopCoroutine(typingCoroutine);
                 currentDialogue.text = story.currentText;
                 isTyping = false;
-            }
-            if (story.currentChoices.Count > 0)
-            {
-                if (skipChoices)
-                {
-                    story.ChooseChoiceIndex(0);
-                }
-                else
-                {
-                    skipping = false;
-                    yield break;
-                }
                 //Log
                 string fullLine = (string.IsNullOrEmpty(currentSpeakerText.text) ? currentDialogue.text : currentSpeakerText.text + ": " + currentDialogue.text);
                 dialogueLog.Add(fullLine);
@@ -488,12 +498,23 @@ public class StoryManager : MonoBehaviour
                     dialogueLog.RemoveAt(0);
                 }
             }
+            if (story.currentChoices.Count > 0)
+            {
+                if (!skipAfterChoices)
+                {
+                    skipping = false;
+                    skipButton.ButtonActive(skipping);
+                    yield break;
+                }
+                yield return new WaitUntil(() => story.currentChoices.Count == 0);
+            }
             string path = story.state.currentPathString;
             bool hasSeen = story.state.VisitCountAtPathString(path) > 1;
             if(!skipUnseen && !globalSeen.Contains(path))
-{
+            {
                 skipping = false;
-                yield break;
+                    skipButton.ButtonActive(false);
+                    yield break;
             }
             if (story.canContinue)
             {
@@ -503,17 +524,18 @@ public class StoryManager : MonoBehaviour
             else
             {
                 skipping = false;
+                skipButton.ButtonActive(false);
                 yield break;
             }
         }
-		skipButton.ButtonActive(false);
+	
 	}
     public void ToggleAuto()
     {
         autoPlaying = !autoPlaying;
         autoButton.ButtonActive(autoPlaying);
 
-        if (autoPlaying) currentAuto = StartCoroutine(AutoRoutine());
+        if (autoPlaying) autoCoroutine = StartCoroutine(AutoRoutine());
 
         else StopAutoPlay();
     }
@@ -523,9 +545,9 @@ public class StoryManager : MonoBehaviour
 		autoButton.ButtonActive(autoPlaying);
 		currentTextSpeed = baseTextSpeed;
 
-        if (currentAuto != null)
+        if (autoCoroutine != null)
         {
-            StopCoroutine(currentAuto);
+            StopCoroutine(autoCoroutine);
         }
     }
     private IEnumerator AutoRoutine()
@@ -537,8 +559,7 @@ public class StoryManager : MonoBehaviour
             yield return new WaitUntil(() => !isTyping);
             if (story.currentChoices.Count > 0)
             {
-                autoPlaying = false;
-                yield break;
+                yield return new WaitUntil(() => story.currentChoices.Count == 0);
             }
             yield return new WaitForSeconds(autoDelay);
             if (story.canContinue)
@@ -548,6 +569,7 @@ public class StoryManager : MonoBehaviour
             else
             {
                 autoPlaying = false;
+                autoButton.ButtonActive(autoPlaying);
             }
                
         }
@@ -595,17 +617,25 @@ public class StoryManager : MonoBehaviour
     }
     public void Save()
     {
-        GameManager.Instance.CoroutineScreenshot();
+        StartCoroutine(SaveRoutine());
+    }
+    private IEnumerator SaveRoutine()
+    {
+        yield return GameManager.Instance.CoroutineScreenshot();
+
         GameManager.Instance.OpenScene("SaveScene");
     }
     public void QuickSave()
     {
-        GameManager.Instance.CoroutineScreenshot();
+        StartCoroutine(QuickSaveRoutine());
+    }
+    private IEnumerator QuickSaveRoutine()
+    {
+        yield return GameManager.Instance.CoroutineScreenshot();
         SaveLoadManager.Instance.QuickSave(story);
     }
     public void QuickLoad()
     {
-        GameManager.Instance.CoroutineScreenshot();
         SaveLoadManager.Instance.QuickLoad();
     }
 }

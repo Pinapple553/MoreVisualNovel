@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: eafc1b3e07a993e4ba7a4893ccc0cde6
+guid: 14e5dd65bbef7524bb2030bbf3b00e82
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6058187673631036830
-    second: more_logo2_0
+      213: -3046228347847333916
+    second: save_page_bg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: more_logo2_0
+      name: save_page_bg_0
       rect:
         serializedVersion: 2
-        x: 1523
-        y: 1259
-        width: 867
-        height: 850
+        x: 131
+        y: 1716
+        width: 317
+        height: 294
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e959d6d6791031450800000000000000
-      internalID: 6058187673631036830
+      spriteID: 4e7a5dd057f99b5d0800000000000000
+      internalID: -3046228347847333916
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      more_logo2_0: 6058187673631036830
+      save_page_bg_0: -3046228347847333916
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
         screenshotTexture.ReadPixels(rect, 0, 0); 
         screenshotTexture.Apply();
 
-        int targetWidth = 200;
-        int targetHeight = 180;
+        int targetWidth = 1000;
+        int targetHeight = 900;
 
         float scale = (float)targetHeight / height;
         int scaledWidth = Mathf.RoundToInt(width *scale);
