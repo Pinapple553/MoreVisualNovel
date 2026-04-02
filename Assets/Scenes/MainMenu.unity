@@ -797,12 +797,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1275973074}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &991956005
 MonoBehaviour:
@@ -1043,12 +1045,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 316799716}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1057561188
 MonoBehaviour:
@@ -1587,12 +1591,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 281946430}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1369836527
 MonoBehaviour:
@@ -1766,7 +1772,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1848,12 +1854,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1750990101}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0.5, g: 0.021226406, b: 0.07778905, a: 1}
 --- !u!114 &1391582249
 MonoBehaviour:
@@ -1867,7 +1875,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1391582248}
+          m_TargetAssemblyTypeName: UIButtonHover, Assembly-CSharp
+          m_MethodName: Selected
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1391582248}
+          m_TargetAssemblyTypeName: UIButtonHover, Assembly-CSharp
+          m_MethodName: Selected
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1431847398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6757,12 +6797,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1359990002}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1575192899
 MonoBehaviour:
@@ -7579,12 +7621,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  button: {fileID: 0}
   BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1755643197}
   normalTextColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   HoverTextColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+  selectedTextColor: {r: 0, g: 0, b: 0, a: 1}
   PressedTextColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &2121955307
 MonoBehaviour:
