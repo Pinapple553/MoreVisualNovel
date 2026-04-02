@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 991956006}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1275973074}
@@ -828,7 +828,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1391582243}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1057536595
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 1057561189}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 316799716}
@@ -1074,7 +1074,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1587,7 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 1369836528}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 281946430}
@@ -1618,7 +1618,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1755,10 +1755,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 2121955307}
+    m_SelectOnDown: {fileID: 991956005}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1766,7 +1766,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 1391582246}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1750990101}
@@ -6757,7 +6757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 1575192900}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1359990002}
@@ -6788,7 +6788,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -7579,7 +7579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 2121955308}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 1755643197}
@@ -7599,10 +7599,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1575192899}
+    m_SelectOnDown: {fileID: 1391582245}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -7610,7 +7610,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

@@ -88,7 +88,6 @@ public class SaveLoadManager : MonoBehaviour
     public void QuickLoad()
     {
         int slot = GetLatestSlot(quickPage);
-
         if (slot == 0) return;
 
         GameManager.Instance.loadFromSave = true;
@@ -104,7 +103,7 @@ public class SaveLoadManager : MonoBehaviour
     }
     private int GetLatestSlot(int page)
     {
-        int latestSlot = 1;
+        int latestSlot = 0;
         System.DateTime latestTime = System.DateTime.MinValue;
 
         for (int i = 1; i <= slotsPerPage; i++)

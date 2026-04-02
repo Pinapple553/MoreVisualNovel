@@ -461,6 +461,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4829848728382086797, guid: 80602319bc3670542933c373cb7f8570, type: 3}
   m_PrefabInstance: {fileID: 1353213143}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1353213145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 592187892902986674, guid: 80602319bc3670542933c373cb7f8570, type: 3}
+  m_PrefabInstance: {fileID: 1353213143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1664545129
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1353213145}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &2123064624

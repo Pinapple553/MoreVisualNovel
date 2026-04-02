@@ -673,6 +673,24 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleSkip"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b0c0158-0159-4927-a072-83a72522ad60"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleAuto"",
+                    ""type"": ""Button"",
+                    ""id"": ""d73a8362-0f2d-4ac0-b261-63f9b06d6989"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1170,6 +1188,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bdcd3b4-3dc2-4053-9b1d-b618ef5adf71"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleSkip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cbd9827-2cb3-49fc-b8be-5ccda84c678d"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleAuto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1262,6 +1302,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_Advance = m_UI.FindAction("Advance", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_UI_ToggleSkip = m_UI.FindAction("ToggleSkip", throwIfNotFound: true);
+        m_UI_ToggleAuto = m_UI.FindAction("ToggleAuto", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -1539,6 +1581,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_Advance;
     private readonly InputAction m_UI_Pause;
+    private readonly InputAction m_UI_ToggleSkip;
+    private readonly InputAction m_UI_ToggleAuto;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1598,6 +1642,14 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/ToggleSkip".
+        /// </summary>
+        public InputAction @ToggleSkip => m_Wrapper.m_UI_ToggleSkip;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/ToggleAuto".
+        /// </summary>
+        public InputAction @ToggleAuto => m_Wrapper.m_UI_ToggleAuto;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1660,6 +1712,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @ToggleSkip.started += instance.OnToggleSkip;
+            @ToggleSkip.performed += instance.OnToggleSkip;
+            @ToggleSkip.canceled += instance.OnToggleSkip;
+            @ToggleAuto.started += instance.OnToggleAuto;
+            @ToggleAuto.performed += instance.OnToggleAuto;
+            @ToggleAuto.canceled += instance.OnToggleAuto;
         }
 
         /// <summary>
@@ -1707,6 +1765,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @ToggleSkip.started -= instance.OnToggleSkip;
+            @ToggleSkip.performed -= instance.OnToggleSkip;
+            @ToggleSkip.canceled -= instance.OnToggleSkip;
+            @ToggleAuto.started -= instance.OnToggleAuto;
+            @ToggleAuto.performed -= instance.OnToggleAuto;
+            @ToggleAuto.canceled -= instance.OnToggleAuto;
         }
 
         /// <summary>
@@ -1967,5 +2031,19 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleSkip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleSkip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleAuto" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleAuto(InputAction.CallbackContext context);
     }
 }

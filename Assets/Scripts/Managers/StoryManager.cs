@@ -83,7 +83,28 @@ public class StoryManager : MonoBehaviour
                 PauseGame();
             }
         };
-    }
+		controls.UI.Advance.performed += ctx =>
+		{
+			if (SceneManager.GetActiveScene().name == "GameScene")
+			{
+				Advance();
+			}
+		};
+		controls.UI.ToggleSkip.performed += ctx =>
+		{
+			if (SceneManager.GetActiveScene().name == "GameScene")
+			{
+				ToggleSkip();
+			}
+		}; 
+        controls.UI.ToggleAuto.performed += ctx =>
+		{
+			if (SceneManager.GetActiveScene().name == "GameScene")
+			{
+				ToggleAuto();
+			}
+		};
+	}
 	private void Start()
 	{
 		baseTextSpeed = PlayerPrefs.GetFloat("textSpeed", 0.05f);

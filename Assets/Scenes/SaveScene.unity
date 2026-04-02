@@ -2607,6 +2607,10 @@ PrefabInstance:
       value: SaveUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7522296809305295247, guid: 3f49f94fc6054714897a4a35c177253b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522296809305295247, guid: 3f49f94fc6054714897a4a35c177253b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: auto
       objectReference: {fileID: 0}

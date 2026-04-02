@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87524f2c3dd49064ba1ca832be53a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BGImage: {fileID: 1094220236947977884}
+  BGImage: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0}
   HoverlColor: {r: 1, g: 1, b: 1, a: 1}
   btnText: {fileID: 7999522232833199055}
